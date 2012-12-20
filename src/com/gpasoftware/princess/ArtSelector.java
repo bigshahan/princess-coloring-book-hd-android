@@ -2,10 +2,12 @@ package com.gpasoftware.princess;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Window;
-import android.view.WindowManager;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.widget.ImageView;
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGParser;
+import android.graphics.Color;
 
 public class ArtSelector extends Activity {
 
@@ -21,6 +23,12 @@ public class ArtSelector extends Activity {
 		if(xlarge || large) {
 			// load view
 			setContentView(R.layout.activity_art_selector);
+			
+			// setup test render
+			ImageView imageView;
+			imageView = (ImageView) this.findViewById(R.id.imageView1);
+			SVG svg = SVGParser.getSVGFromResource(getResources(), R.raw.test);
+			imageView.setImageDrawable(svg.createPictureDrawable());
 		} else {
 			// not a tablet. show error
 			setContentView(R.layout.not_tablet);
