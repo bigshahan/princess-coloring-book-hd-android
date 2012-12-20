@@ -1,5 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Princess Coloring Book</string>
+    <string name="app_name">Princess Color</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_art_selector">ArtSelector</string>
+    <string name="not_tablet">Not a tablet.</string>
 
 </resources>
