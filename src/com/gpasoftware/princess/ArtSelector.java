@@ -12,8 +12,10 @@ import android.graphics.Canvas;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Picture;
 import android.graphics.Point;
 import android.graphics.Bitmap.Config;
+import android.graphics.RectF;
 import android.util.Log;
 
 public class ArtSelector extends Activity {
@@ -35,15 +37,7 @@ public class ArtSelector extends Activity {
 			// load view
 			setContentView(R.layout.activity_art_selector);
 			
-			// setup test render
-			ImageView imageView;
-			imageView = (ImageView) this.findViewById(R.id.imageView1);
-			SVG svg = SVGParser.getSVGFromResource(getResources(), R.raw.test);
-			imageView.setImageDrawable(svg.createPictureDrawable());
-			
-			// setup drawable region
-			im = (ImageView) this.findViewById(R.id.imageView2);
-			
+			// setup display size
 			Display display = getWindowManager().getDefaultDisplay(); 
 			Point size = new Point();
 			
@@ -58,6 +52,28 @@ public class ArtSelector extends Activity {
 				x = display.getHeight();
 				y = display.getWidth();
 			}
+			
+			// setup test render
+			ImageView im2;
+			im2 = (ImageView) this.findViewById(R.id.imageView1);
+			SVG svg = SVGParser.getSVGFromResource(getResources(), R.raw.test);
+			
+			Bitmap bm2;
+			Canvas c2;
+			
+			bm2 = Bitmap.createBitmap(x, y, Config.ARGB_8888);
+			c2 = new Canvas(bm2);
+			
+			im2.setImageBitmap(bm2);
+			
+			RectF dest = new RectF(0,0,x,y);
+			
+		    Picture picture = svg.getPicture();
+		    
+		    c2.drawPicture(picture, dest);
+			
+			// setup drawable region
+			im = (ImageView) this.findViewById(R.id.imageView2);
 			
 			Log.w("x", Integer.toString(x));
 			Log.w("y", Integer.toString(y));
