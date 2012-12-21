@@ -48,6 +48,9 @@ public class ArtSelector extends Activity implements OnTouchListener {
 		if(action == MotionEvent.ACTION_DOWN) {
 			lastX = currentX;
 			lastY = currentY;
+			m.setStrokeWidth(0);
+			c.drawCircle(currentX, currentY, px/2, m);
+			m.setStrokeWidth(px);
 			return true;
 		}
 		
@@ -64,15 +67,19 @@ public class ArtSelector extends Activity implements OnTouchListener {
 //					path.setFillType(Path.FillType.INVERSE_EVEN_ODD); 
 					path.lineTo(midX, midY);
 					c.drawPath(path, m);
-					c.drawPoint(midX, midY, m);
+					m.setStrokeWidth(0);
+					c.drawCircle(midX, midY, px/2, m);
+					m.setStrokeWidth(px);
 					lastX = midX;
 					lastY = midY;
 				}
 			}
 			
 			c.drawLine(lastX, lastY, currentX, currentY, m);
-			c.drawPoint(currentX, currentY, m);
-
+			m.setStrokeWidth(0);
+			c.drawCircle(currentX, currentY, px/2, m);
+			m.setStrokeWidth(px);
+			
 			V.invalidate();
 		}
 
@@ -154,7 +161,7 @@ public class ArtSelector extends Activity implements OnTouchListener {
 			m = new Paint();
 			m.setColor(Color.MAGENTA);
 //			m.setAlpha(200);
-			m.setStyle(Style.STROKE);
+			m.setStyle(Style.FILL_AND_STROKE);
 			m.setAntiAlias(true);
 			
 			// determine stroke width
