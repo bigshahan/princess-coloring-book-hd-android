@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.view.Display;
 import android.widget.ImageView;
 import com.larvalabs.svgandroid.SVG;
@@ -12,22 +13,87 @@ import android.graphics.Canvas;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
+import android.graphics.Path;
 import android.graphics.Picture;
 import android.graphics.Point;
 import android.graphics.Bitmap.Config;
 import android.graphics.RectF;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.View;
+import android.view.MotionEvent;
+import android.view.View.OnTouchListener;
 
-public class ArtSelector extends Activity {
+public class ArtSelector extends Activity implements OnTouchListener {
 	ImageView im;
 	Bitmap bm;
 	Canvas c;
+	Paint m;
+	float lastX = 0;
+	float lastY = 0;
+	float px = 5;
+	
+	@Override
+	public boolean onTouch(View V, MotionEvent event) {
+		float currentX = event.getRawX();
+		float currentY = event.getRawY();
+		float midX = 0;
+		float midY = 0;
+		
+		
+
+		int action = event.getActionMasked();
+		
+		if(action == MotionEvent.ACTION_DOWN) {
+			lastX = currentX;
+			lastY = currentY;
+			return true;
+		}
+		
+		Path path;
+		
+		if((action == MotionEvent.ACTION_MOVE || action == MotionEvent.ACTION_UP) && lastX != 0 && lastY != 0) {
+			if(event.getHistorySize() > 0) {
+				for(int i = 0; i < event.getHistorySize(); i++) {
+					midX = event.getHistoricalX(i);
+					midY = event.getHistoricalY(i);
+					
+					path = new Path();
+					path.moveTo(lastX, lastY);
+//					path.setFillType(Path.FillType.INVERSE_EVEN_ODD); 
+					path.lineTo(midX, midY);
+					c.drawPath(path, m);
+					c.drawPoint(midX, midY, m);
+					lastX = midX;
+					lastY = midY;
+				}
+			}
+			
+			c.drawLine(lastX, lastY, currentX, currentY, m);
+			c.drawPoint(currentX, currentY, m);
+
+			V.invalidate();
+		}
+
+		
+		
+		if(action == MotionEvent.ACTION_MOVE) {
+			lastX = currentX;
+			lastY = currentY;
+		} else {
+			lastX = 0;
+			lastY = 0;
+		}
+		
+		return true;
+	}
 
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		Log.w("started", "yup");
 		// show view
 		Context context  = getApplicationContext();
 		boolean xlarge = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
@@ -71,6 +137,8 @@ public class ArtSelector extends Activity {
 		    Picture picture = svg.getPicture();
 		    
 		    c2.drawPicture(picture, dest);
+		    
+		    im2.setOnTouchListener(this);
 			
 			// setup drawable region
 			im = (ImageView) this.findViewById(R.id.imageView2);
@@ -83,9 +151,19 @@ public class ArtSelector extends Activity {
 			
 			im.setImageBitmap(bm);
 			
-			Paint textPaint = new Paint();
-			textPaint.setColor(Color.GREEN);
-			c.drawLine(0, 0, c.getWidth(), c.getHeight(), textPaint);
+			m = new Paint();
+			m.setColor(Color.MAGENTA);
+//			m.setAlpha(200);
+			m.setStyle(Style.STROKE);
+			m.setAntiAlias(true);
+			
+			// determine stroke width
+			Resources r = getResources();
+			px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, r.getDisplayMetrics());
+			
+			m.setStrokeWidth(px);
+			
+			c.drawLine(0, 0, c.getWidth(), c.getHeight(), m);
 		} else {
 			// not a tablet. show error
 			setContentView(R.layout.not_tablet);
