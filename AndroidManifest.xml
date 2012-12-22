@@ -8,24 +8,36 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="16" />
 
-    <supports-screens android:requiresSmallestWidthDp="600" android:smallScreens="false" android:normalScreens="false" android:largeScreens="true" android:xlargeScreens="true" />
-    
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="false"
+        android:requiresSmallestWidthDp="600"
+        android:smallScreens="false"
+        android:xlargeScreens="true" />
+
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
-        android:hardwareAccelerated="true"
-        >
+        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
+       
         <activity
-            android:name="com.gpasoftware.princess.Sketch"
+            android:name="com.gpasoftware.princess.ArtSelector"
             android:label="@string/app_name"
-            android:screenOrientation="sensorLandscape">
-            <intent-filter>
+              android:screenOrientation="sensorLandscape">
+              <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        
+         <activity
+            android:name="com.gpasoftware.princess.Sketch"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape" >
+            
         </activity>
     </application>
 
