@@ -25,7 +25,7 @@ import android.view.View;
 import android.view.MotionEvent;
 import android.view.View.OnTouchListener;
 
-public class ArtSelector extends Activity implements OnTouchListener {
+public class Sketch extends Activity implements OnTouchListener {
 	ImageView im;
 	Bitmap bm;
 	Canvas c;
@@ -64,7 +64,6 @@ public class ArtSelector extends Activity implements OnTouchListener {
 					
 					path = new Path();
 					path.moveTo(lastX, lastY);
-//					path.setFillType(Path.FillType.INVERSE_EVEN_ODD); 
 					path.lineTo(midX, midY);
 					c.drawPath(path, m);
 					m.setStrokeWidth(0);
@@ -100,6 +99,7 @@ public class ArtSelector extends Activity implements OnTouchListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		Log.w("started", "yup");
 		// show view
 		Context context  = getApplicationContext();
@@ -108,7 +108,7 @@ public class ArtSelector extends Activity implements OnTouchListener {
 		
 		if(xlarge || large) {
 			// load view
-			setContentView(R.layout.activity_art_selector);
+			setContentView(R.layout.sketch);
 			
 			// setup display size
 			Display display = getWindowManager().getDefaultDisplay(); 
@@ -170,7 +170,6 @@ public class ArtSelector extends Activity implements OnTouchListener {
 			
 			m.setStrokeWidth(px);
 			
-			c.drawLine(0, 0, c.getWidth(), c.getHeight(), m);
 		} else {
 			// not a tablet. show error
 			setContentView(R.layout.not_tablet);
