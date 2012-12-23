@@ -3,6 +3,7 @@ package com.gpasoftware.princess;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -79,7 +80,9 @@ public class ArtSelector extends Activity implements OnClickListener  {
 		switch(view.getId()) {
 			case R.id.artImage:
 				// open selected artwork
-				
+				Intent intent = new Intent(this, Sketch.class);
+				intent.putExtra("artworkId", artwork[current]);
+			    startActivity(intent);
 			break;
 			case R.id.previous:
 				if(current-1 > 0) {

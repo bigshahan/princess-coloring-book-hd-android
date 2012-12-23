@@ -3,6 +3,7 @@ package com.gpasoftware.princess;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.view.Display;
@@ -100,7 +101,11 @@ public class Sketch extends Activity implements OnTouchListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		Log.w("started", "yup");
+		// artwork to display
+		Bundle extras = getIntent().getExtras();
+		int artworkId = extras.getInt("artworkId");
+
+		Log.w("started", "yup with artworkId: " + Integer.toString(artworkId));
 
 			// load view
 			setContentView(R.layout.sketch);
@@ -124,7 +129,7 @@ public class Sketch extends Activity implements OnTouchListener {
 			// setup test render
 			ImageView im2;
 			im2 = (ImageView) this.findViewById(R.id.imageView1);
-			SVG svg = SVGParser.getSVGFromResource(getResources(), R.raw.scene1);
+			SVG svg = SVGParser.getSVGFromResource(getResources(), artworkId);
 			
 			Bitmap bm2;
 			Canvas c2;
