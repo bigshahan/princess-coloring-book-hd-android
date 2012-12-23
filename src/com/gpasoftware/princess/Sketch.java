@@ -101,12 +101,7 @@ public class Sketch extends Activity implements OnTouchListener {
 		super.onCreate(savedInstanceState);
 		
 		Log.w("started", "yup");
-		// show view
-		Context context  = getApplicationContext();
-		boolean xlarge = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
-		boolean large = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
-		
-		if(xlarge || large) {
+
 			// load view
 			setContentView(R.layout.sketch);
 			
@@ -169,11 +164,5 @@ public class Sketch extends Activity implements OnTouchListener {
 			px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, r.getDisplayMetrics());
 			
 			m.setStrokeWidth(px);
-			
-		} else {
-			// not a tablet. show error
-			setContentView(R.layout.not_tablet);
-		}
-		
 	}
 }
