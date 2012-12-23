@@ -14,21 +14,13 @@
         android:text="&lt;" />
 
     <Button
-        android:id="@+id/bext"
+        android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/previous"
         android:layout_marginRight="45dp"
         android:text="&gt;" />
-
-    <ImageView
-        android:id="@+id/artImage"
-        android:layout_width="350dp"
-        android:layout_height="300dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="51dp"
-        android:layout_toLeftOf="@+id/bext" />
 
     <TextView
         android:id="@+id/counter"
@@ -38,17 +30,14 @@
         android:layout_below="@+id/artImage"
         android:layout_marginLeft="142dp"
         android:layout_marginTop="39dp"
-        android:text="1/20" />
+        android:text="1/5" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/previous"
-        android:layout_alignBottom="@+id/previous"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="93dp"
-        android:text="Princess Coloring Book"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <ImageView
+        android:id="@+id/artImage"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="48dp"
+        android:layout_toLeftOf="@+id/next" />
 
 </RelativeLayout>

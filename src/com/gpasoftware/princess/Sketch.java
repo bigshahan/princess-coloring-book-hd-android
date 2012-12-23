@@ -124,7 +124,7 @@ public class Sketch extends Activity implements OnTouchListener {
 			// setup test render
 			ImageView im2;
 			im2 = (ImageView) this.findViewById(R.id.imageView1);
-			SVG svg = SVGParser.getSVGFromResource(getResources(), R.raw.test);
+			SVG svg = SVGParser.getSVGFromResource(getResources(), R.raw.scene1);
 			
 			Bitmap bm2;
 			Canvas c2;
