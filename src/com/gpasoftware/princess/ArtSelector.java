@@ -13,7 +13,6 @@ import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.RectF;
 import android.graphics.Bitmap.Config;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;

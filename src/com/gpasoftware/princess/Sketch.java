@@ -2,9 +2,6 @@ package com.gpasoftware.princess;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.view.Display;
 import android.widget.ImageView;
@@ -107,67 +104,67 @@ public class Sketch extends Activity implements OnTouchListener {
 
 		Log.w("started", "yup with artworkId: " + Integer.toString(artworkId));
 
-			// load view
-			setContentView(R.layout.sketch);
-			
-			// setup display size
-			Display display = getWindowManager().getDefaultDisplay(); 
-			Point size = new Point();
-			
-			int x = 0;
-			int y = 0;
-			
-			if(android.os.Build.VERSION.SDK_INT >= 13) {
-				display.getSize(size);
-				x = size.x;
-				y = size.y;
-			} else {
-				x = display.getHeight();
-				y = display.getWidth();
-			}
-			
-			// setup test render
-			ImageView im2;
-			im2 = (ImageView) this.findViewById(R.id.imageView1);
-			SVG svg = SVGParser.getSVGFromResource(getResources(), artworkId);
-			
-			Bitmap bm2;
-			Canvas c2;
-			
-			bm2 = Bitmap.createBitmap(x, y, Config.ARGB_8888);
-			c2 = new Canvas(bm2);
-			
-			im2.setImageBitmap(bm2);
-			
-			RectF dest = new RectF(0,0,x,y);
-			
-		    Picture picture = svg.getPicture();
-		    
-		    c2.drawPicture(picture, dest);
-		    
-		    im2.setOnTouchListener(this);
-			
-			// setup drawable region
-			im = (ImageView) this.findViewById(R.id.imageView2);
-			
-			Log.w("x", Integer.toString(x));
-			Log.w("y", Integer.toString(y));
-			
-			bm = Bitmap.createBitmap(x, y, Config.ARGB_8888);
-			c = new Canvas(bm);
-			
-			im.setImageBitmap(bm);
-			
-			m = new Paint();
-			m.setColor(Color.MAGENTA);
-//			m.setAlpha(200);
-			m.setStyle(Style.FILL_AND_STROKE);
-			m.setAntiAlias(true);
-			
-			// determine stroke width
-			Resources r = getResources();
-			px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, r.getDisplayMetrics());
-			
-			m.setStrokeWidth(px);
+		// load view
+		setContentView(R.layout.sketch);
+		
+		// setup display size
+		Display display = getWindowManager().getDefaultDisplay(); 
+		Point size = new Point();
+		
+		int x = 0;
+		int y = 0;
+		
+		if(android.os.Build.VERSION.SDK_INT >= 13) {
+			display.getSize(size);
+			x = size.x;
+			y = size.y;
+		} else {
+			x = display.getHeight();
+			y = display.getWidth();
+		}
+		
+		// setup test render
+		ImageView im2;
+		im2 = (ImageView) this.findViewById(R.id.imageView1);
+		SVG svg = SVGParser.getSVGFromResource(getResources(), artworkId);
+		
+		Bitmap bm2;
+		Canvas c2;
+		
+		bm2 = Bitmap.createBitmap(x, y, Config.ARGB_8888);
+		c2 = new Canvas(bm2);
+		
+		im2.setImageBitmap(bm2);
+		
+		RectF dest = new RectF(0,0,x,y);
+		
+	    Picture picture = svg.getPicture();
+	    
+	    c2.drawPicture(picture, dest);
+	    
+	    im2.setOnTouchListener(this);
+		
+		// setup drawable region
+		im = (ImageView) this.findViewById(R.id.imageView2);
+		
+		Log.w("x", Integer.toString(x));
+		Log.w("y", Integer.toString(y));
+		
+		bm = Bitmap.createBitmap(x, y, Config.ARGB_8888);
+		c = new Canvas(bm);
+		
+		im.setImageBitmap(bm);
+		
+		m = new Paint();
+		m.setColor(Color.MAGENTA);
+		// m.setAlpha(200);
+		m.setStyle(Style.FILL_AND_STROKE);
+		m.setAntiAlias(true);
+		
+		// determine stroke width
+		Resources r = getResources();
+		px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, r.getDisplayMetrics());
+		
+		m.setStrokeWidth(px);
 	}
 }
