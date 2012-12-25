@@ -39,8 +39,6 @@ public class Sketch extends Activity implements OnTouchListener {
 		float midX = 0;
 		float midY = 0;
 		
-		
-
 		int action = event.getActionMasked();
 		
 		if(action == MotionEvent.ACTION_DOWN) {
@@ -80,8 +78,6 @@ public class Sketch extends Activity implements OnTouchListener {
 			V.invalidate();
 		}
 
-		
-		
 		if(action == MotionEvent.ACTION_MOVE) {
 			lastX = currentX;
 			lastY = currentY;
