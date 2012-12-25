@@ -5,40 +5,59 @@
     android:background="@drawable/background"
     tools:context=".ArtSelector" >
 
-    <Button
+    <ImageButton
         android:id="@+id/previous"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/artImage"
         android:layout_alignBottom="@+id/artImage"
-        android:layout_marginBottom="124dp"
         android:layout_toLeftOf="@+id/artImage"
-        android:text="&lt;" />
+        android:layout_marginRight="10dp"
+        android:background="@null"
+        android:contentDescription="@string/previous_scene"
+        android:src="@drawable/left_button" />
 
-    <Button
+    <ImageButton
         android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/previous"
-        android:layout_marginRight="45dp"
-        android:text="&gt;" />
+        android:layout_toRightOf="@+id/artImage"
+        android:layout_alignTop="@+id/artImage"
+        android:layout_alignBottom="@+id/artImage"
+        android:layout_marginLeft="10dp"
+        android:background="@null"
+        android:contentDescription="@string/next_scene"
+        android:src="@drawable/right_button" />
 
-    <TextView
-        android:id="@+id/counter"
+    <ImageView
+        android:id="@+id/titleImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/artImage"
-        android:layout_below="@+id/artImage"
-        android:layout_marginLeft="142dp"
-        android:layout_marginTop="39dp"
-        android:text="1/5" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
+        android:contentDescription="@string/title"
+        android:src="@drawable/title" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="1dp"
+        android:layout_marginBottom="1dp"
+        android:text="@string/copyright"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <ImageView
         android:id="@+id/artImage"
         android:layout_width="350dp"
+        android:contentDescription="@string/scene"
         android:layout_height="300dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="48dp"
-        android:layout_toLeftOf="@+id/next" />
+        android:layout_below="@+id/titleImage"
+        android:layout_centerHorizontal="true"
+/>
 
 </RelativeLayout>

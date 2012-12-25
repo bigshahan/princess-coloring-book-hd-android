@@ -16,15 +16,13 @@ import android.graphics.Bitmap.Config;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import com.larvalabs.svgandroid.SVG;
 import com.larvalabs.svgandroid.SVGParser;
 
 public class ArtSelector extends Activity implements OnClickListener  {
 	ImageView art;
-	TextView counter;
 	int current = 1;
 	int total = 5;
 	int[] artwork = {0, R.raw.scene1, R.raw.scene2, R.raw.scene3, R.raw.scene4, R.raw.scene5};
@@ -51,11 +49,10 @@ public class ArtSelector extends Activity implements OnClickListener  {
 		
 		// setup ImageView and Counter
 		art = (ImageView) this.findViewById(R.id.artImage);
-		counter = (TextView) this.findViewById(R.id.counter);
 		
 		// setup buttons
-		Button previous = (Button) this.findViewById(R.id.previous);
-		Button next = (Button) this.findViewById(R.id.next);
+		ImageButton previous = (ImageButton) this.findViewById(R.id.previous);
+		ImageButton next = (ImageButton) this.findViewById(R.id.next);
 		
 		// load artwork
 		Resources r = getResources();
@@ -86,16 +83,20 @@ public class ArtSelector extends Activity implements OnClickListener  {
 			case R.id.previous:
 				if(current-1 > 0) {
 					current--;
-					loadArtwork(artwork[current]);
-					updateCounter();
+				} else {
+					current = total;
 				}
+				
+				loadArtwork(artwork[current]);
 			break;
 			case R.id.next:
 				if(current+1 <= total) {
 					current++;
-					loadArtwork(artwork[current]);
-					updateCounter();
+				} else {
+					current = 1;
 				}
+				
+				loadArtwork(artwork[current]);
 			break;
 		}
 	}
@@ -110,11 +111,6 @@ public class ArtSelector extends Activity implements OnClickListener  {
 	    artCanvas.drawPaint(whitePaint);
 	    artCanvas.drawPicture(picture, artRect);
 	    getWindow().getDecorView().invalidate();
-	}
-	
-	// update counter
-	private void updateCounter() {
-		counter.setText(Integer.toString(current) + '/' + Integer.toString(total));
 	}
 
 }
