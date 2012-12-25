@@ -12,7 +12,7 @@
         android:layout_alignTop="@+id/artImage"
         android:layout_alignBottom="@+id/artImage"
         android:layout_toLeftOf="@+id/artImage"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="20dp"
         android:background="@null"
         android:contentDescription="@string/previous_scene"
         android:src="@drawable/left_button" />
@@ -24,7 +24,7 @@
         android:layout_toRightOf="@+id/artImage"
         android:layout_alignTop="@+id/artImage"
         android:layout_alignBottom="@+id/artImage"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
         android:background="@null"
         android:contentDescription="@string/next_scene"
         android:src="@drawable/right_button" />
@@ -54,10 +54,13 @@
     <ImageView
         android:id="@+id/artImage"
         android:layout_width="350dp"
-        android:contentDescription="@string/scene"
         android:layout_height="300dp"
+        android:adjustViewBounds="true"
+        android:maxWidth="600dp"
+        android:scaleType="centerInside"
         android:layout_below="@+id/titleImage"
         android:layout_centerHorizontal="true"
-/>
+        android:background="@color/white"
+        android:contentDescription="@string/scene" />
 
 </RelativeLayout>

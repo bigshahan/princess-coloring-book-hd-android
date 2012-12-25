@@ -5,11 +5,24 @@
     android:background="@drawable/background"
     tools:context=".ArtSelector" >
 
-    <TextView
+    <ImageView
+        android:id="@+id/titleImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
+        android:contentDescription="@string/title"
+        android:src="@drawable/title" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleImage"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/not_tablet" />
+        android:text="Tablet Required"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
