@@ -5,14 +5,12 @@
     android:background="@drawable/background"
     tools:context=".ArtSelector" >
     
-    <ImageView
+    <View
         android:id="@+id/lights"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_centerHorizontal="true"
-        android:src="@null"
        	android:background="@drawable/lights_tile"
-        android:contentDescription="@null"
 	/>
 
     <ImageButton
@@ -38,6 +36,8 @@
         android:background="@null"
         android:contentDescription="@string/next_scene"
         android:src="@drawable/right_button" />
+    
+
 
     <ImageView
         android:id="@+id/titleImage"
@@ -46,7 +46,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="40dp"
         android:contentDescription="@string/title"
         android:src="@drawable/title_portrait" />
 
@@ -56,18 +56,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="1dp"
+        android:layout_alignParentRight="true"
         android:layout_marginBottom="1dp"
+        android:layout_marginLeft="1dp"
+        android:gravity="center"
         android:text="@string/copyright"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <ImageView
+    <com.gpasoftware.princess.SceneSelectorImage
         android:id="@+id/artImage"
-        android:layout_width="350dp"
-        android:layout_height="530dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/titleImage"
         android:layout_centerHorizontal="true"
-        android:background="@color/white"
+        android:background="@drawable/frame"
         android:contentDescription="@string/scene" />
 
 </RelativeLayout>

@@ -13,16 +13,18 @@ import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.RectF;
 import android.graphics.Bitmap.Config;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import com.larvalabs.svgandroid.SVG;
 import com.larvalabs.svgandroid.SVGParser;
+import com.gpasoftware.princess.SceneSelectorImage;
+
 
 public class ArtSelector extends Activity implements OnClickListener  {
-	ImageView art;
+	SceneSelectorImage art;
 	int current = 1;
 	int total = 5;
 	int[] artwork = {0, R.raw.scene1, R.raw.scene2, R.raw.scene3, R.raw.scene4, R.raw.scene5};
@@ -48,8 +50,8 @@ public class ArtSelector extends Activity implements OnClickListener  {
 		setContentView(R.layout.art_selector);
 		
 		// setup ImageView and Counter
-		art = (ImageView) this.findViewById(R.id.artImage);
-		
+		art = (SceneSelectorImage) this.findViewById(R.id.artImage);
+			
 		// setup buttons
 		ImageButton previous = (ImageButton) this.findViewById(R.id.previous);
 		ImageButton next = (ImageButton) this.findViewById(R.id.next);
