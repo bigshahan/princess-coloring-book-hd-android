@@ -39,16 +39,12 @@ public class SceneSelectorImage extends ImageView {
 		// account for arrows
 		int spacingWidthSide = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 120, r.getDisplayMetrics());
 		
-		// bottom padding
-		int spacingHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, r.getDisplayMetrics());
+		// bottom padding + title
+		int spacingHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400, r.getDisplayMetrics());
 		
 		// width of Image
         int widthOfImage = MeasureSpec.getSize(widthMeasureSpec) - spacingWidthSide*2;
         int heightOfPage = 400;
-        int topOfDrawable = 400;
-        
-        // calculate where drawable is
-        topOfDrawable = getDrawable().getBounds().bottom;
         
         // Get Height of Page
         WindowManager wm = (WindowManager) ctx.getSystemService(Context.WINDOW_SERVICE);
@@ -64,11 +60,10 @@ public class SceneSelectorImage extends ImageView {
         
         
         // Calculate Image Height
-        int heightOfImage = heightOfPage - topOfDrawable - spacingHeight;
+        int heightOfImage = heightOfPage - spacingHeight;
         
         // calculate height
         Log.w("heightOfPage", Integer.toString(heightOfPage));
-        Log.w("topOfDrawable", Integer.toString(topOfDrawable));
         Log.w("width", Integer.toString(widthOfImage));
         Log.w("height", Integer.toString(heightOfImage));
         

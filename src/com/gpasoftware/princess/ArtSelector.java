@@ -57,15 +57,7 @@ public class ArtSelector extends Activity implements OnClickListener  {
 		ImageButton next = (ImageButton) this.findViewById(R.id.next);
 		
 		// load artwork
-		Resources r = getResources();
-		float x = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 350, r.getDisplayMetrics());
-		float y = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 300, r.getDisplayMetrics());
-		artRect = new RectF(0,0,x,y);
-		artBitmap = Bitmap.createBitmap((int) x, (int) y, Config.ARGB_8888);
-		
-		artCanvas = new Canvas(artBitmap);
-		art.setImageBitmap(artBitmap);
-		loadArtwork(artwork[5]);
+		loadArtwork(artwork[current]);
 		
 		// setup click handling
 		previous.setOnClickListener(this);
@@ -110,9 +102,21 @@ public class ArtSelector extends Activity implements OnClickListener  {
 	    Paint whitePaint = new Paint();
 	    whitePaint.setColor(Color.WHITE);
 	    
-	    artCanvas.drawPaint(whitePaint);
-	    artCanvas.drawPicture(picture, artRect);
-	    getWindow().getDecorView().invalidate();
+		artRect = svg.getBounds();
+		
+		if(artRect == null|| (int) artRect.width() == 0 || (int) artRect.height() == 0) {
+			artRect = svg.getLimits();
+		}
+		
+		if(artRect != null && (int) artRect.width() != 0 && (int) artRect.height() != 0) {
+			artBitmap = Bitmap.createBitmap((int) artRect.width(), (int) artRect.height(), Config.ARGB_8888);
+		
+			artCanvas = new Canvas(artBitmap);
+			art.setImageBitmap(artBitmap);
+	    
+			artCanvas.drawPicture(picture, artRect);
+			getWindow().getDecorView().invalidate();
+		}
 	}
 
 }

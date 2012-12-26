@@ -34,8 +34,8 @@ public class Sketch extends Activity implements OnTouchListener {
 	
 	@Override
 	public boolean onTouch(View V, MotionEvent event) {
-		float currentX = event.getRawX();
-		float currentY = event.getRawY();
+		float currentX = event.getX(0);
+		float currentY = event.getY(0);
 		float midX = 0;
 		float midY = 0;
 		
@@ -93,6 +93,7 @@ public class Sketch extends Activity implements OnTouchListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Resources r = getResources();
 		
 		// artwork to display
 		Bundle extras = getIntent().getExtras();
@@ -115,36 +116,42 @@ public class Sketch extends Activity implements OnTouchListener {
 			x = size.x;
 			y = size.y;
 		} else {
-			x = display.getHeight();
-			y = display.getWidth();
+			x = display.getWidth();
+			y = display.getHeight();
 		}
+		
+		y = y - (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, r.getDisplayMetrics());
 		
 		// setup test render
 		ImageView im2;
 		im2 = (ImageView) this.findViewById(R.id.imageView1);
 		SVG svg = SVGParser.getSVGFromResource(getResources(), artworkId);
 		
-		Bitmap bm2;
-		Canvas c2;
+		RectF dest = svg.getBounds();
 		
-		bm2 = Bitmap.createBitmap(x, y, Config.ARGB_8888);
-		c2 = new Canvas(bm2);
+		if(dest == null|| (int) dest.width() == 0 || (int) dest.height() == 0) {
+			dest = svg.getLimits();
+		}
 		
-		im2.setImageBitmap(bm2);
+		if(dest != null && (int) dest.width() != 0 && (int) dest.height() != 0) {
+			Bitmap bm2;
+			Canvas c2;
+			
+			bm2 = Bitmap.createBitmap(x, y, Config.ARGB_8888);
+			c2 = new Canvas(bm2);
+			
+			im2.setImageBitmap(bm2);
+						
+		    Picture picture = svg.getPicture();
+		    
+		    c2.drawPicture(picture, dest);
+		    
+		    im2.setOnTouchListener(this);
+		}
 		
-		RectF dest = new RectF(0,0,x,y);
-		
-	    Picture picture = svg.getPicture();
-	    
-	    c2.drawPicture(picture, dest);
-	    
-	    im2.setOnTouchListener(this);
 		
 		// setup drawable region
 		im = (ImageView) this.findViewById(R.id.imageView2);
-		
-		Log.w("x", Integer.toString(x));
-		Log.w("y", Integer.toString(y));
 		
 		bm = Bitmap.createBitmap(x, y, Config.ARGB_8888);
 		c = new Canvas(bm);
@@ -158,7 +165,6 @@ public class Sketch extends Activity implements OnTouchListener {
 		m.setAntiAlias(true);
 		
 		// determine stroke width
-		Resources r = getResources();
 		px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, r.getDisplayMetrics());
 		
 		m.setStrokeWidth(px);

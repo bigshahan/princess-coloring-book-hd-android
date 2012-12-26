@@ -18,5 +18,6 @@
     </style>
     <color name="green">#00ff00</color>
 	<color name="white">#ffffff</color>
+	<color name="light_pink">#facee1</color>
 
 </resources>
