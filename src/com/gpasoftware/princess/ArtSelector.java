@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -14,7 +13,6 @@ import android.graphics.Picture;
 import android.graphics.RectF;
 import android.graphics.Bitmap.Config;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -108,6 +106,57 @@ public class ArtSelector extends Activity implements OnClickListener  {
 			artRect = svg.getLimits();
 		}
 		
+		// get dimensions of imageview
+		float x = art.getWidth();
+		float y = art.getHeight();
+		
+		Log.w("xArtImageView", Float.toString(x));
+		Log.w("yArtImageView", Float.toString(y));
+		
+		// scale Image
+		float xScaled = artRect.width();
+		float yScaled = artRect.height();
+		
+		// only scale if BOTH dimensions are bigger
+		if(xScaled > x && yScaled > y && x > 0 && y > 0) {
+			if(xScaled > yScaled) {
+				// width is bigger than height
+				// match to x value
+				float scaleFactor = xScaled/x;
+				xScaled = xScaled * scaleFactor;
+				yScaled = yScaled * scaleFactor;
+				
+			} else {
+				// height is bigger than or equal to width
+				// match to y value
+				float scaleFactor = yScaled/y;
+				xScaled = xScaled * scaleFactor;
+				yScaled = yScaled * scaleFactor;
+			}
+			
+			// update dest
+			artRect = new RectF(0,0,xScaled, yScaled);
+		} else if(xScaled < x && yScaled < y && x > 0 && y > 0) {
+			if(xScaled > yScaled) {
+				// width is bigger than height
+				// match to x value
+				float scaleFactor = x/xScaled;
+				xScaled = xScaled * scaleFactor;
+				yScaled = yScaled * scaleFactor;
+				
+			} else {
+				// height is bigger than or equal to width
+				// match to y value
+				float scaleFactor = y/yScaled;
+				xScaled = xScaled * scaleFactor;
+				yScaled = yScaled * scaleFactor;
+			}
+			
+			// update dest
+			artRect = new RectF(0,0,xScaled, yScaled);
+		}
+		
+		// render image
 		if(artRect != null && (int) artRect.width() != 0 && (int) artRect.height() != 0) {
 			artBitmap = Bitmap.createBitmap((int) artRect.width(), (int) artRect.height(), Config.ARGB_8888);
 		

@@ -17,7 +17,6 @@ import android.graphics.Picture;
 import android.graphics.Point;
 import android.graphics.Bitmap.Config;
 import android.graphics.RectF;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.MotionEvent;
@@ -99,8 +98,6 @@ public class Sketch extends Activity implements OnTouchListener {
 		Bundle extras = getIntent().getExtras();
 		int artworkId = extras.getInt("artworkId");
 
-		Log.w("started", "yup with artworkId: " + Integer.toString(artworkId));
-
 		// load view
 		setContentView(R.layout.sketch);
 		
@@ -125,8 +122,9 @@ public class Sketch extends Activity implements OnTouchListener {
 		// setup test render
 		ImageView im2;
 		im2 = (ImageView) this.findViewById(R.id.imageView1);
-		SVG svg = SVGParser.getSVGFromResource(getResources(), artworkId);
 		
+		SVG svg = SVGParser.getSVGFromResource(getResources(), artworkId);
+
 		RectF dest = svg.getBounds();
 		
 		if(dest == null|| (int) dest.width() == 0 || (int) dest.height() == 0) {
@@ -137,13 +135,39 @@ public class Sketch extends Activity implements OnTouchListener {
 			Bitmap bm2;
 			Canvas c2;
 			
-			bm2 = Bitmap.createBitmap((int) dest.width(), (int) dest.height(), Config.ARGB_8888);
+		    // scale picture
+			Picture picture = svg.getPicture();
+			
+			float xScaled = dest.width();
+			float yScaled = dest.height();
+			
+			// only scale if BOTH dimensions are smaller
+			if(xScaled < x && yScaled < y) {
+				if(xScaled > yScaled) {
+					// width is bigger than height
+					// match to x value
+					float scaleFactor = x/xScaled;
+					xScaled = xScaled * scaleFactor;
+					yScaled = yScaled * scaleFactor;
+					
+				} else {
+					// height is bigger than or equal to width
+					// match to y value
+					float scaleFactor = y/yScaled;
+					xScaled = xScaled * scaleFactor;
+					yScaled = yScaled * scaleFactor;
+				}
+				
+				// update dest
+				dest = new RectF(0,0,xScaled, yScaled);
+			}
+
+		    // draw picture
+			bm2 = Bitmap.createBitmap((int) xScaled, (int) yScaled, Config.ARGB_8888);
 			c2 = new Canvas(bm2);
 			
 			im2.setImageBitmap(bm2);
-						
-		    Picture picture = svg.getPicture();
-		    
+			
 		    c2.drawPicture(picture, dest);
 		    
 		    im2.setOnTouchListener(this);
