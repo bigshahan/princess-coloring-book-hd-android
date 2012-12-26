@@ -141,8 +141,28 @@ public class Sketch extends Activity implements OnTouchListener {
 			float xScaled = dest.width();
 			float yScaled = dest.height();
 			
-			// only scale if BOTH dimensions are smaller
-			if(xScaled < x && yScaled < y) {
+			// scale DOWN if EITHER dimensions are bigger
+			if((xScaled > x || yScaled > y) && x > 0 && y > 0) {
+				if(xScaled > yScaled) {
+					// width is bigger than height
+					// match to x value
+					float scaleFactor = xScaled/x;
+					xScaled = xScaled * scaleFactor;
+					yScaled = yScaled * scaleFactor;
+					
+				} else {
+					// height is bigger than or equal to width
+					// match to y value
+					float scaleFactor = yScaled/y;
+					xScaled = xScaled * scaleFactor;
+					yScaled = yScaled * scaleFactor;
+				}
+				
+				// update dest
+				dest = new RectF(0,0,xScaled, yScaled);
+
+			// scale UP if BOTH dimensions are smaller
+			} if(xScaled < x && yScaled < y && x > 0 && y > 0) {
 				if(xScaled > yScaled) {
 					// width is bigger than height
 					// match to x value

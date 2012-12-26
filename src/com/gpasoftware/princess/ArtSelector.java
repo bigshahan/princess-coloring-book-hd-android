@@ -12,7 +12,6 @@ import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.RectF;
 import android.graphics.Bitmap.Config;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -106,19 +105,21 @@ public class ArtSelector extends Activity implements OnClickListener  {
 			artRect = svg.getLimits();
 		}
 		
+		// return if dimensions are wrong
+		if(! (artRect != null && (int) artRect.width() != 0 && (int) artRect.height() != 0)) {
+			return;
+		}
+		
 		// get dimensions of imageview
 		float x = art.getWidth();
 		float y = art.getHeight();
-		
-		Log.w("xArtImageView", Float.toString(x));
-		Log.w("yArtImageView", Float.toString(y));
-		
+
 		// scale Image
 		float xScaled = artRect.width();
 		float yScaled = artRect.height();
 		
-		// only scale if BOTH dimensions are bigger
-		if(xScaled > x && yScaled > y && x > 0 && y > 0) {
+		// scale DOWN if EITHER dimensions are bigger
+		if((xScaled > x || yScaled > y) && x > 0 && y > 0) {
 			if(xScaled > yScaled) {
 				// width is bigger than height
 				// match to x value
@@ -136,6 +137,8 @@ public class ArtSelector extends Activity implements OnClickListener  {
 			
 			// update dest
 			artRect = new RectF(0,0,xScaled, yScaled);
+
+		// scale UP if BOTH dimensions are smaller
 		} else if(xScaled < x && yScaled < y && x > 0 && y > 0) {
 			if(xScaled > yScaled) {
 				// width is bigger than height
@@ -157,15 +160,13 @@ public class ArtSelector extends Activity implements OnClickListener  {
 		}
 		
 		// render image
-		if(artRect != null && (int) artRect.width() != 0 && (int) artRect.height() != 0) {
-			artBitmap = Bitmap.createBitmap((int) artRect.width(), (int) artRect.height(), Config.ARGB_8888);
+		artBitmap = Bitmap.createBitmap((int) artRect.width(), (int) artRect.height(), Config.ARGB_8888);
 		
-			artCanvas = new Canvas(artBitmap);
-			art.setImageBitmap(artBitmap);
+		artCanvas = new Canvas(artBitmap);
+		art.setImageBitmap(artBitmap);
 	    
-			artCanvas.drawPicture(picture, artRect);
-			getWindow().getDecorView().invalidate();
-		}
+		artCanvas.drawPicture(picture, artRect);
+		getWindow().getDecorView().invalidate();
 	}
 
 }

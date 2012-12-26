@@ -8,10 +8,10 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 
 
+@SuppressLint("DrawAllocation")
 public class SceneSelectorImage extends ImageView {
 	Context ctx;
 	
@@ -62,11 +62,7 @@ public class SceneSelectorImage extends ImageView {
         // Calculate Image Height
         int heightOfImage = heightOfPage - spacingHeight;
         
-        // calculate height
-        Log.w("heightOfPage", Integer.toString(heightOfPage));
-        Log.w("width", Integer.toString(widthOfImage));
-        Log.w("height", Integer.toString(heightOfImage));
-        
+        // Set Dimension
         setMeasuredDimension(widthOfImage, heightOfImage);
     }
 }
