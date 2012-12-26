@@ -69,6 +69,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/titleImage"
         android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter"
         android:background="@drawable/frame"
         android:contentDescription="@string/scene" />
 

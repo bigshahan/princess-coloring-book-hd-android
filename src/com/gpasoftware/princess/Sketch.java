@@ -137,7 +137,7 @@ public class Sketch extends Activity implements OnTouchListener {
 			Bitmap bm2;
 			Canvas c2;
 			
-			bm2 = Bitmap.createBitmap(x, y, Config.ARGB_8888);
+			bm2 = Bitmap.createBitmap((int) dest.width(), (int) dest.height(), Config.ARGB_8888);
 			c2 = new Canvas(bm2);
 			
 			im2.setImageBitmap(bm2);
