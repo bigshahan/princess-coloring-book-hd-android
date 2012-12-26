@@ -4,6 +4,16 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     tools:context=".ArtSelector" >
+    
+    <ImageView
+        android:id="@+id/lights"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:src="@null"
+       	android:background="@drawable/lights_tile"
+        android:contentDescription="@null"
+	/>
 
     <ImageButton
         android:id="@+id/previous"
@@ -35,13 +45,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
         android:contentDescription="@string/title"
-        android:src="@drawable/title" />
+        android:src="@drawable/title_portrait" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/copyright"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -54,10 +64,7 @@
     <ImageView
         android:id="@+id/artImage"
         android:layout_width="350dp"
-        android:layout_height="300dp"
-        android:adjustViewBounds="true"
-        android:maxWidth="600dp"
-        android:scaleType="centerInside"
+        android:layout_height="530dp"
         android:layout_below="@+id/titleImage"
         android:layout_centerHorizontal="true"
         android:background="@color/white"

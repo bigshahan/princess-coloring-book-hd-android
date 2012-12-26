@@ -1,0 +1,6 @@
+<bitmap
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:src="@drawable/lights"
+android:gravity="fill"
+android:dither = "true"
+/>
