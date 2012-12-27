@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.content.res.Resources;
 import android.view.Display;
 import android.widget.ImageButton;
@@ -42,6 +43,28 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 	LinearLayout thicknessLayout;
 	Paint thicknessClear;
 	Paint thicknessFill;
+	LinearLayout colorsContainer;
+	int[] colorsArray = {
+			R.color.picker_1,
+			R.color.picker_2,
+			R.color.picker_3,
+			R.color.picker_4,
+			
+			R.color.picker_5,
+			R.color.picker_6,
+			R.color.picker_7,
+			R.color.picker_8,
+
+			R.color.picker_9,
+			R.color.picker_10,
+			R.color.picker_11,
+			R.color.picker_12,
+
+			R.color.picker_13,
+			R.color.picker_14,
+			R.color.picker_15,
+			R.color.picker_16,
+};
 	
 	@Override
 	public boolean onTouch(View V, MotionEvent event) {
@@ -216,7 +239,7 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 		
 		// setup current paint
 		m = new Paint();
-		m.setColor(Color.MAGENTA);
+		m.setColor(getResources().getColor(colorsArray[2]));
 		// m.setAlpha(200);
 		m.setStyle(Style.FILL_AND_STROKE);
 		m.setAntiAlias(true);
@@ -243,6 +266,47 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 		// setup save button
 		ImageButton saveButton = (ImageButton) this.findViewById(R.id.saveButton);
 		saveButton.setOnClickListener(this);
+		
+		// setup colors
+		setupColors();
+	}
+	
+	void setupColors() {
+		// Colors List
+		colorsContainer = (LinearLayout) this.findViewById(R.id.colors);
+		
+		for(int i=0; i < colorsArray.length; i++) {
+			
+			if(i == 2) {
+				addColor(colorsArray[i], true);
+			} else {
+				addColor(colorsArray[i], false);
+			}
+			
+		}
+	}
+	
+	void addColor(int color, boolean selected) {
+		// Create ImageView
+		ImageView image = new ImageView(this);
+		
+		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		
+		image.setLayoutParams(layoutParams);
+		
+		if(selected) {
+			image.setImageResource(R.drawable.color_circle_selected);
+		} else {
+			image.setImageResource(R.drawable.color_circle);
+		}
+		
+		image.setBackgroundColor(getResources().getColor(color));
+		
+		// Add Listener
+		image.setOnClickListener(this);
+		
+		// Add ImageView to 
+		colorsContainer.addView(image);
 	}
 	
 	// DP TO PIXELS, INT

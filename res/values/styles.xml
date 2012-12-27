@@ -22,4 +22,25 @@
 	
 	<color name="ui_pink">#fa6fab</color>
 	<color name="ui_pink_selected">#893d5e</color>
+	
+	
+	<color name="picker_1">#000000</color>
+	<color name="picker_2">#ffffff</color>
+	<color name="picker_3">#fa6fab</color>
+	<color name="picker_4">#ff4343</color>
+
+	<color name="picker_5">#c948cb</color>
+	<color name="picker_6">#c391ed</color>
+	<color name="picker_7">#0c81ed</color>
+	<color name="picker_8">#08bfed</color>
+	
+	<color name="picker_9">#14ed8a</color>
+	<color name="picker_10">#1b9c24</color>
+	<color name="picker_11">#3cff00</color>
+	<color name="picker_12">#f0ff00</color>
+	
+	<color name="picker_13">#ffa200</color>
+	<color name="picker_14">#ffb793</color>
+	<color name="picker_15">#b98267</color>
+	<color name="picker_16">#402f28</color>
 </resources>
