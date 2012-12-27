@@ -227,11 +227,6 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 		thicknessClear.setAntiAlias(true);
 		thicknessClear.setStyle(Style.FILL);
 		
-		thicknessFill = new Paint();
-		thicknessFill.setColor(getResources().getColor(R.color.ui_pink));
-		thicknessFill.setAntiAlias(true);
-		thicknessFill.setStyle(Style.FILL);
-		
 		// setup thickness views
 		thicknessSlider = (SeekBar) this.findViewById(R.id.thicknessSlider);
 		thicknessSlider.setOnSeekBarChangeListener(this);
@@ -259,14 +254,20 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 	void setThickness(float thickness) {
 		// set thickness. convert dp to px
 		currentThickness = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, thickness, r.getDisplayMetrics());
-		
+		updateThickness();
+	}
+	
+	void updateThickness() {
 		// clear canvas
 		thicknessCanvas.drawPaint(thicknessClear);
 		
 		// draw circle
 		float posX = ((float) dpToPxInt(60))/2;
 		float posY = currentThickness/2;
-		thicknessCanvas.drawCircle(posX, posY, currentThickness/2, thicknessFill);
+		
+		m.setStrokeWidth(0);
+		thicknessCanvas.drawCircle(posX, posY, currentThickness/2, m);
+		m.setStrokeWidth(currentThickness);
 		
 		// invalidate
 		thicknessLayout.invalidate();
