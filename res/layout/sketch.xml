@@ -10,28 +10,163 @@
         android:layout_width="match_parent"
         android:background="@color/light_pink"
         android:orientation="horizontal"
+      
         android:gravity="center"
         >
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+       
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView1"
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:src="@drawable/color_gradient" />
+            
+            android:gravity="center"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="5dp"
+                android:gravity="center"
+                android:orientation="horizontal" >
+                
+                <ImageView
+            		android:layout_width="wrap_content"
+           		 	android:layout_height="wrap_content"
+            		android:background="@color/white"
+            		android:src="@drawable/color_circle_selected" />
         
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:src="@drawable/color_circle" />
+        		<ImageView
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/green"
+            		android:src="@drawable/color_circle" />
+        
+        		<ImageView
+            		android:id="@+id/imageView6"
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/light_pink"
+            		android:src="@drawable/color_circle" />
+        		
+        		<ImageView
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/green"
+            		android:src="@drawable/color_circle" />
+        
+        		<ImageView
+            		android:id="@+id/imageView6"
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/light_pink"
+            		android:src="@drawable/color_circle" />
+        		
+        		<ImageView
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/green"
+            		android:src="@drawable/color_circle" />
+        
+        		<ImageView
+            		android:id="@+id/imageView6"
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/light_pink"
+            		android:src="@drawable/color_circle" />
+        		
+        		<ImageView
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/green"
+            		android:src="@drawable/color_circle" />
+        
+        		<ImageView
+            		android:id="@+id/imageView6"
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/light_pink"
+            		android:src="@drawable/color_circle" />
+        		
+        		<ImageView
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/green"
+            		android:src="@drawable/color_circle" />
+        
+        		<ImageView
+            		android:id="@+id/imageView6"
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/light_pink"
+            		android:src="@drawable/color_circle" />
+        		
+        		<ImageView
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/green"
+            		android:src="@drawable/color_circle" />
+        
+        		<ImageView
+            		android:id="@+id/imageView6"
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/light_pink"
+            		android:src="@drawable/color_circle" />
+        		
+        		<ImageView
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/green"
+            		android:src="@drawable/color_circle" />
+        
+        		<ImageView
+            		android:id="@+id/imageView6"
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/light_pink"
+            		android:src="@drawable/color_circle" />
+        		
+        		<ImageView
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/green"
+            		android:src="@drawable/color_circle" />
+        
+        		<ImageView
+            		android:id="@+id/imageView6"
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/light_pink"
+            		android:src="@drawable/color_circle" />
+        		
+        		<ImageView
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/green"
+            		android:src="@drawable/color_circle" />
+        
+        		<ImageView
+            		android:id="@+id/imageView6"
+            		android:layout_width="wrap_content"
+            		android:layout_height="wrap_content"
+            		android:background="@color/light_pink"
+            		android:src="@drawable/color_circle" />
+                 
+            </LinearLayout>
+        </HorizontalScrollView>
+        
+
         
         <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:src="@drawable/save_button" />
+             android:id="@+id/saveButton"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_marginLeft="5dp"
+        	android:layout_marginRight="5dp"
+        	android:background="@null"
+        	android:src="@drawable/save_button" />
     </LinearLayout>
     
     <ImageView
