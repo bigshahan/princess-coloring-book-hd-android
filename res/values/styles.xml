@@ -19,5 +19,7 @@
     <color name="green">#00ff00</color>
 	<color name="white">#ffffff</color>
 	<color name="light_pink">#facee1</color>
-
+	
+	<color name="ui_pink">#fa6fab</color>
+	<color name="ui_pink_selected">#893d5e</color>
 </resources>
