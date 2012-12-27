@@ -44,6 +44,8 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 	Paint thicknessClear;
 	Paint thicknessFill;
 	LinearLayout colorsContainer;
+	ImageView currentColorImage;
+	
 	int[] colorsArray = {
 			R.color.picker_1,
 			R.color.picker_2,
@@ -294,16 +296,17 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 		
 		image.setLayoutParams(layoutParams);
 		
-		if(selected) {
-			image.setImageResource(R.drawable.color_circle_selected);
-		} else {
-			image.setImageResource(R.drawable.color_circle);
-		}
-		
 		image.setBackgroundColor(getResources().getColor(color));
 		
 		// Add Listener
 		image.setOnClickListener(this);
+		
+		if(selected) {
+			image.setImageResource(R.drawable.color_circle_selected);
+			currentColorImage = image;
+		} else {
+			image.setImageResource(R.drawable.color_circle);
+		}
 		
 		// Add ImageView to 
 		colorsContainer.addView(image);
@@ -360,10 +363,18 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 	@Override
 	public void onClick(View view) {
 		// save to gallery
+		if(view.getId() == R.id.saveButton) {
+			// save to gallery
+			return;
+		}
 		
+		// change color
+		currentColorImage.setImageResource(R.drawable.color_circle);
+		currentColorImage = (ImageView) view;
+		currentColorImage.setImageResource(R.drawable.color_circle_selected);
 		
-		// show alert telling about success
+		//m.setColor();
 		
-		
+		updateThickness();
 	}
 }
