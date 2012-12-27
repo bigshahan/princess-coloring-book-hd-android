@@ -5,6 +5,9 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.view.Display;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
+
 import com.larvalabs.svgandroid.SVG;
 import com.larvalabs.svgandroid.SVGParser;
 import android.graphics.Canvas;
@@ -22,14 +25,22 @@ import android.view.View;
 import android.view.MotionEvent;
 import android.view.View.OnTouchListener;
 
-public class Sketch extends Activity implements OnTouchListener {
+public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekBarChangeListener {
 	ImageView im;
 	Bitmap bm;
 	Canvas c;
 	Paint m;
 	float lastX = 0;
 	float lastY = 0;
-	float px = 5;
+	float currentThickness = 8;
+	Resources r;
+	SeekBar thicknessSlider;
+	ImageView thicknessImage;
+	Canvas thicknessCanvas;
+	Bitmap thicknessBitmap;
+	LinearLayout thicknessLayout;
+	Paint thicknessClear;
+	Paint thicknessFill;
 	
 	@Override
 	public boolean onTouch(View V, MotionEvent event) {
@@ -44,8 +55,8 @@ public class Sketch extends Activity implements OnTouchListener {
 			lastX = currentX;
 			lastY = currentY;
 			m.setStrokeWidth(0);
-			c.drawCircle(currentX, currentY, px/2, m);
-			m.setStrokeWidth(px);
+			c.drawCircle(currentX, currentY, currentThickness/2, m);
+			m.setStrokeWidth(currentThickness);
 			return true;
 		}
 		
@@ -62,8 +73,8 @@ public class Sketch extends Activity implements OnTouchListener {
 					path.lineTo(midX, midY);
 					c.drawPath(path, m);
 					m.setStrokeWidth(0);
-					c.drawCircle(midX, midY, px/2, m);
-					m.setStrokeWidth(px);
+					c.drawCircle(midX, midY, currentThickness/2, m);
+					m.setStrokeWidth(currentThickness);
 					lastX = midX;
 					lastY = midY;
 				}
@@ -71,8 +82,8 @@ public class Sketch extends Activity implements OnTouchListener {
 			
 			c.drawLine(lastX, lastY, currentX, currentY, m);
 			m.setStrokeWidth(0);
-			c.drawCircle(currentX, currentY, px/2, m);
-			m.setStrokeWidth(px);
+			c.drawCircle(currentX, currentY, currentThickness/2, m);
+			m.setStrokeWidth(currentThickness);
 			
 			V.invalidate();
 		}
@@ -92,7 +103,7 @@ public class Sketch extends Activity implements OnTouchListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Resources r = getResources();
+		r = getResources();
 		
 		// artwork to display
 		Bundle extras = getIntent().getExtras();
@@ -202,15 +213,75 @@ public class Sketch extends Activity implements OnTouchListener {
 		
 		im.setImageBitmap(bm);
 		
+		// setup current paint
 		m = new Paint();
 		m.setColor(Color.MAGENTA);
 		// m.setAlpha(200);
 		m.setStyle(Style.FILL_AND_STROKE);
 		m.setAntiAlias(true);
 		
-		// determine stroke width
-		px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, r.getDisplayMetrics());
+		// setup thickness paints
+		thicknessClear = new Paint();
+		thicknessClear.setColor(getResources().getColor(R.color.light_pink));
+		thicknessClear.setAntiAlias(true);
+		thicknessClear.setStyle(Style.FILL);
 		
-		m.setStrokeWidth(px);
+		thicknessFill = new Paint();
+		thicknessFill.setColor(getResources().getColor(R.color.ui_pink));
+		thicknessFill.setAntiAlias(true);
+		thicknessFill.setStyle(Style.FILL);
+		
+		// setup thickness views
+		thicknessSlider = (SeekBar) this.findViewById(R.id.thicknessSlider);
+		thicknessSlider.setOnSeekBarChangeListener(this);
+		thicknessImage = (ImageView) this.findViewById(R.id.thicknessImage);
+		int thicknessX = dpToPxInt(40);
+		int thicknessY = dpToPxInt(40);
+		thicknessBitmap = Bitmap.createBitmap(thicknessX, thicknessY, Config.ARGB_8888);
+		thicknessCanvas = new Canvas(thicknessBitmap);
+		thicknessImage.setImageBitmap(thicknessBitmap);
+		thicknessLayout = (LinearLayout) this.findViewById(R.id.thicknessLayout);
+		
+		setThickness(8);
+	}
+	
+	// DP TO PIXELS, INT
+	int dpToPxInt(int dp) {
+		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+	}
+	
+	// MANAGE THICKNESS
+	void setThickness(float thickness) {
+		// set thickness. convert dp to px
+		currentThickness = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, thickness, r.getDisplayMetrics());
+		
+		// clear canvas
+		thicknessCanvas.drawPaint(thicknessClear);
+		
+		// draw circle
+		float pos = ((float) dpToPxInt(40))/2;
+		thicknessCanvas.drawCircle(pos, pos, currentThickness/2, thicknessFill);
+		
+		// invalidate
+		thicknessLayout.invalidate();
+	}
+
+	@Override
+	public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
+		// TODO Auto-generated method stub
+		float thickness = (float) 5 + (float) progress * (float) 0.15;
+		setThickness(thickness);
+	}
+
+	@Override
+	public void onStartTrackingTouch(SeekBar arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onStopTrackingTouch(SeekBar arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
