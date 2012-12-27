@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
- android:shape="oval">
-	<gradient android:startColor="@color/ui_pink" android:endColor="@color/ui_pink_selected" android:angle="270"/>
-	<size android:height="20dp" android:width="20dp"/>
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/slider_circle_pressed" android:state_pressed="true"/>
+     <item android:drawable="@drawable/slider_circle_normal"/>
+
+</selector>
