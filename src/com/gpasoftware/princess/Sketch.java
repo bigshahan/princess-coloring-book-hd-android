@@ -2,12 +2,14 @@ package com.gpasoftware.princess;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.content.res.Resources;
 import android.view.Display;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-
 import com.larvalabs.svgandroid.SVG;
 import com.larvalabs.svgandroid.SVGParser;
 import android.graphics.Canvas;
@@ -21,11 +23,10 @@ import android.graphics.Point;
 import android.graphics.Bitmap.Config;
 import android.graphics.RectF;
 import android.util.TypedValue;
-import android.view.View;
 import android.view.MotionEvent;
 import android.view.View.OnTouchListener;
 
-public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekBarChangeListener {
+public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekBarChangeListener, OnClickListener {
 	ImageView im;
 	Bitmap bm;
 	Canvas c;
@@ -235,7 +236,7 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 		thicknessSlider = (SeekBar) this.findViewById(R.id.thicknessSlider);
 		thicknessSlider.setOnSeekBarChangeListener(this);
 		thicknessImage = (ImageView) this.findViewById(R.id.thicknessImage);
-		int thicknessX = dpToPxInt(40);
+		int thicknessX = dpToPxInt(60);
 		int thicknessY = dpToPxInt(40);
 		thicknessBitmap = Bitmap.createBitmap(thicknessX, thicknessY, Config.ARGB_8888);
 		thicknessCanvas = new Canvas(thicknessBitmap);
@@ -243,6 +244,10 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 		thicknessLayout = (LinearLayout) this.findViewById(R.id.thicknessLayout);
 		
 		setThickness(8);
+		
+		// setup save button
+		ImageButton saveButton = (ImageButton) this.findViewById(R.id.saveButton);
+		saveButton.setOnClickListener(this);
 	}
 	
 	// DP TO PIXELS, INT
@@ -259,8 +264,9 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 		thicknessCanvas.drawPaint(thicknessClear);
 		
 		// draw circle
-		float pos = ((float) dpToPxInt(40))/2;
-		thicknessCanvas.drawCircle(pos, pos, currentThickness/2, thicknessFill);
+		float posX = ((float) dpToPxInt(60))/2;
+		float posY = currentThickness/2;
+		thicknessCanvas.drawCircle(posX, posY, currentThickness/2, thicknessFill);
 		
 		// invalidate
 		thicknessLayout.invalidate();
@@ -282,6 +288,17 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 	@Override
 	public void onStopTrackingTouch(SeekBar arg0) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	// save!!
+	@Override
+	public void onClick(View view) {
+		// save to gallery
+		
+		
+		// show alert telling about success
+		
 		
 	}
 }
