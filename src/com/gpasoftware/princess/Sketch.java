@@ -23,6 +23,7 @@ import android.graphics.Picture;
 import android.graphics.Point;
 import android.graphics.Bitmap.Config;
 import android.graphics.RectF;
+import android.graphics.drawable.ColorDrawable;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View.OnTouchListener;
@@ -374,6 +375,7 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 		currentColorImage.setImageResource(R.drawable.color_circle_selected);
 		
 		//m.setColor();
+		m.setColor(((ColorDrawable) currentColorImage.getBackground()).getColor());
 		
 		updateThickness();
 	}
