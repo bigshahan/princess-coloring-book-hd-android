@@ -14,6 +14,8 @@
         android:requiresSmallestWidthDp="600"
         android:smallScreens="false"
         android:xlargeScreens="true" />
+    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"

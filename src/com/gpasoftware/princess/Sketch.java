@@ -1,15 +1,19 @@
 package com.gpasoftware.princess;
 
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.view.Display;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import com.larvalabs.svgandroid.SVG;
 import com.larvalabs.svgandroid.SVGParser;
@@ -237,6 +241,9 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 		
 		bm = Bitmap.createBitmap(x, y, Config.ARGB_8888);
 		c = new Canvas(bm);
+		Paint whitePaint = new Paint();
+		whitePaint.setColor(Color.WHITE);
+		c.drawPaint(whitePaint);
 		
 		im.setImageBitmap(bm);
 		
@@ -365,7 +372,23 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 	public void onClick(View view) {
 		// save to gallery
 		if(view.getId() == R.id.saveButton) {
+			// get bitmap
+			RelativeLayout sketchView = (RelativeLayout) findViewById(R.id.sketchContainer);
+			
+			sketchView.setDrawingCacheEnabled(true);
+			sketchView.buildDrawingCache();
+			
 			// save to gallery
+			MediaStore.Images.Media.insertImage(getContentResolver(), sketchView.getDrawingCache(), "Princess Coloring Book", "Princess Coloring Book");
+			
+			sketchView.setDrawingCacheEnabled(false);
+			
+			// show alert
+			new AlertDialog.Builder(this)
+		    .setMessage("Your artwork has been saved to the gallery.")
+		    .setPositiveButton("OK", new DialogInterface.OnClickListener() { public void onClick(DialogInterface dialog, int which) { }})
+		    .show();
+			
 			return;
 		}
 		

@@ -69,26 +69,32 @@
         	android:src="@drawable/save_button" />
     </LinearLayout>
     
-    <ImageView
+    <RelativeLayout
+        android:id="@+id/sketchContainer"
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    >
+        <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:background="@color/white" />
+        />
 
-    <ImageView
+    	<ImageView
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
-        android:layout_below="@+id/toolbar"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:scaleType="fitCenter"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
   />
+    </RelativeLayout>
+    
 
     
 
