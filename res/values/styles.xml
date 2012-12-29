@@ -25,6 +25,9 @@
 	
 	
 	<color name="picker_1">#000000</color>
+	
+	<color name="picker_17">#c0c0c0</color>
+	
 	<color name="picker_2">#ffffff</color>
 	<color name="picker_3">#fa6fab</color>
 	<color name="picker_4">#ff4343</color>

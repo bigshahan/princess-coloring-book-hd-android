@@ -1,5 +1,9 @@
 package com.gpasoftware.princess;
 
+import java.util.HashMap;
+
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -28,6 +32,11 @@ public class ArtSelector extends Activity implements OnClickListener  {
 	Bitmap artBitmap;
 	Canvas artCanvas;
 	RectF artRect;
+	
+	private int mStream1 = 0;
+	private SoundPool mSoundPool;
+	private int mSoundBg;
+	private AudioManager mAudioManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +70,21 @@ public class ArtSelector extends Activity implements OnClickListener  {
 		previous.setOnClickListener(this);
 		next.setOnClickListener(this);
 		art.setOnClickListener(this);
+		
+		// setup audio
+		setupAudio();
+	}
+	
+	private void setupAudio() {
+		mSoundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+		mAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+		
+		mSoundBg = mSoundPool.load(this, R.raw.audio, 1);
+		
+		float streamVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+		streamVolume = streamVolume / mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+		
+		mStream1 = mSoundPool.play(mSoundBg, streamVolume, streamVolume, 1, -1, 1f);
 	}
 
 	@Override

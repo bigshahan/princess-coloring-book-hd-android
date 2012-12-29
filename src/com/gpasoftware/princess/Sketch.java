@@ -53,6 +53,7 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 	
 	int[] colorsArray = {
 			R.color.picker_1,
+			R.color.picker_17,
 			R.color.picker_2,
 			R.color.picker_3,
 			R.color.picker_4,
