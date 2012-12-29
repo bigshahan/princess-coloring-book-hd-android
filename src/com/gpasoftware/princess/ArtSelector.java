@@ -100,55 +100,6 @@ public class ArtSelector extends Activity implements OnClickListener  {
 	    Paint whitePaint = new Paint();
 	    whitePaint.setColor(Color.WHITE);
 		
-		// get dimensions of imageview
-		float x = art.getWidth();
-		float y = art.getHeight();
-
-		// scale Image
-		float xScaled = artRect.width();
-		float yScaled = artRect.height();
-		
-		// scale DOWN if EITHER dimensions are bigger
-		if((xScaled > x || yScaled > y) && x > 0 && y > 0) {
-			if(xScaled > yScaled) {
-				// width is bigger than height
-				// match to x value
-				float scaleFactor = xScaled/x;
-				xScaled = xScaled * scaleFactor;
-				yScaled = yScaled * scaleFactor;
-				
-			} else {
-				// height is bigger than or equal to width
-				// match to y value
-				float scaleFactor = yScaled/y;
-				xScaled = xScaled * scaleFactor;
-				yScaled = yScaled * scaleFactor;
-			}
-			
-			// update dest
-			artRect = new RectF(0,0,xScaled, yScaled);
-
-		// scale UP if BOTH dimensions are smaller
-		} else if(xScaled < x && yScaled < y && x > 0 && y > 0) {
-			if(xScaled > yScaled) {
-				// width is bigger than height
-				// match to x value
-				float scaleFactor = x/xScaled;
-				xScaled = xScaled * scaleFactor;
-				yScaled = yScaled * scaleFactor;
-				
-			} else {
-				// height is bigger than or equal to width
-				// match to y value
-				float scaleFactor = y/yScaled;
-				xScaled = xScaled * scaleFactor;
-				yScaled = yScaled * scaleFactor;
-			}
-			
-			// update dest
-			artRect = new RectF(0,0,xScaled, yScaled);
-		}
-		
 		// render image
 		artBitmap = Bitmap.createBitmap((int) artRect.width(), (int) artRect.height(), Config.ARGB_8888);
 		
