@@ -5,21 +5,29 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.util.Log;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Picture;
+import android.graphics.RectF;
+import android.graphics.Bitmap.Config;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
-import com.tinyline.app.SVGView;
-import com.tinyline.tiny2d.Tiny2D;
-import com.tinyline.tiny2d.TinyState;
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGParser;
+import com.gpasoftware.princess.SceneSelectorImage;
 
 
 public class ArtSelector extends Activity implements OnClickListener  {
+	SceneSelectorImage art;
 	int current = 1;
 	int total = 13;
-	SVGView canvas;
-	Tiny2D t2d;
-    TinyState tstate;
+	int[] artwork = { 0, R.raw.scene13, R.raw.scene1, R.raw.scene2, R.raw.scene3, R.raw.scene4, R.raw.scene5, R.raw.scene6, R.raw.scene7, R.raw.scene8, R.raw.scene9 , R.raw.scene10 , R.raw.scene11, R.raw.scene12 };
+	Bitmap artBitmap;
+	Canvas artCanvas;
+	RectF artRect;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +47,19 @@ public class ArtSelector extends Activity implements OnClickListener  {
 		setContentView(R.layout.art_selector);
 		
 		// setup ImageView and Counter
-		canvas = (SVGView) this.findViewById(R.id.artImage);
+		art = (SceneSelectorImage) this.findViewById(R.id.artImage);
 			
 		// setup buttons
 		ImageButton previous = (ImageButton) this.findViewById(R.id.previous);
 		ImageButton next = (ImageButton) this.findViewById(R.id.next);
 		
 		// load artwork
-		loadArtwork();
+		loadArtwork(artwork[current]);
 		
 		// setup click handling
 		previous.setOnClickListener(this);
 		next.setOnClickListener(this);
-		canvas.setOnClickListener(this);
+		art.setOnClickListener(this);
 	}
 
 	@Override
@@ -60,7 +68,7 @@ public class ArtSelector extends Activity implements OnClickListener  {
 			case R.id.artImage:
 				// open selected artwork
 				Intent intent = new Intent(this, Sketch.class);
-				intent.putExtra("artworkId", current);
+				intent.putExtra("artworkId", artwork[current]);
 			    startActivity(intent);
 			break;
 			case R.id.previous:
@@ -70,7 +78,7 @@ public class ArtSelector extends Activity implements OnClickListener  {
 					current = total;
 				}
 				
-				loadArtwork();
+				loadArtwork(artwork[current]);
 			break;
 			case R.id.next:
 				if(current+1 <= total) {
@@ -79,18 +87,86 @@ public class ArtSelector extends Activity implements OnClickListener  {
 					current = 1;
 				}
 				
-				loadArtwork();
+				loadArtwork(artwork[current]);
 			break;
 		}
 	}
 	
 	// display artwork in art ImageView
-	private void loadArtwork() {
-		canvas.goURL("svg/scene" + current + ".svg");
-		t2d = canvas.raster.getTiny2D();
-		tstate = t2d.getState();	
-		Log.w("tsate", tstate.toString());
-//		getWindow().getDecorView().invalidate();
+	private void loadArtwork(int artwork) {
+		SVG svg = SVGParser.getSVGFromResource(getResources(), artwork);
+	    Picture picture = svg.getPicture();
+	    Paint whitePaint = new Paint();
+	    whitePaint.setColor(Color.WHITE);
+	    
+		artRect = svg.getBounds();
+		
+		if(artRect == null|| (int) artRect.width() == 0 || (int) artRect.height() == 0) {
+			artRect = svg.getLimits();
+		}
+		
+		// return if dimensions are wrong
+		if(! (artRect != null && (int) artRect.width() != 0 && (int) artRect.height() != 0)) {
+			return;
+		}
+		
+		// get dimensions of imageview
+		float x = art.getWidth();
+		float y = art.getHeight();
+
+		// scale Image
+		float xScaled = artRect.width();
+		float yScaled = artRect.height();
+		
+		// scale DOWN if EITHER dimensions are bigger
+		if((xScaled > x || yScaled > y) && x > 0 && y > 0) {
+			if(xScaled > yScaled) {
+				// width is bigger than height
+				// match to x value
+				float scaleFactor = xScaled/x;
+				xScaled = xScaled * scaleFactor;
+				yScaled = yScaled * scaleFactor;
+				
+			} else {
+				// height is bigger than or equal to width
+				// match to y value
+				float scaleFactor = yScaled/y;
+				xScaled = xScaled * scaleFactor;
+				yScaled = yScaled * scaleFactor;
+			}
+			
+			// update dest
+			artRect = new RectF(0,0,xScaled, yScaled);
+
+		// scale UP if BOTH dimensions are smaller
+		} else if(xScaled < x && yScaled < y && x > 0 && y > 0) {
+			if(xScaled > yScaled) {
+				// width is bigger than height
+				// match to x value
+				float scaleFactor = x/xScaled;
+				xScaled = xScaled * scaleFactor;
+				yScaled = yScaled * scaleFactor;
+				
+			} else {
+				// height is bigger than or equal to width
+				// match to y value
+				float scaleFactor = y/yScaled;
+				xScaled = xScaled * scaleFactor;
+				yScaled = yScaled * scaleFactor;
+			}
+			
+			// update dest
+			artRect = new RectF(0,0,xScaled, yScaled);
+		}
+		
+		// render image
+		artBitmap = Bitmap.createBitmap((int) artRect.width(), (int) artRect.height(), Config.ARGB_8888);
+		
+		artCanvas = new Canvas(artBitmap);
+		art.setImageBitmap(artBitmap);
+	    
+		artCanvas.drawPicture(picture, artRect);
+		getWindow().getDecorView().invalidate();
 	}
 
 }
