@@ -271,7 +271,7 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 		thicknessImage.setImageBitmap(thicknessBitmap);
 		thicknessLayout = (LinearLayout) this.findViewById(R.id.thicknessLayout);
 		
-		setThickness(8);
+		setThickness(20);
 		
 		// setup save button
 		ImageButton saveButton = (ImageButton) this.findViewById(R.id.saveButton);
@@ -351,7 +351,7 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 	@Override
 	public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
 		// TODO Auto-generated method stub
-		float thickness = (float) 5 + (float) progress * (float) 0.15;
+		float thickness = (float) 10 + (float) progress * (float) 0.2;
 		setThickness(thickness);
 	}
 
