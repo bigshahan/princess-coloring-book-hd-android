@@ -23,8 +23,8 @@ import com.gpasoftware.princess.SceneSelectorImage;
 public class ArtSelector extends Activity implements OnClickListener  {
 	SceneSelectorImage art;
 	int current = 1;
-	int total = 8;
-	int[] artwork = {0, R.raw.scene1, R.raw.scene2, R.raw.scene3, R.raw.scene4, R.raw.scene5, R.raw.scene6, R.raw.scene7, R.raw.scene8};
+	int total = 13;
+	int[] artwork = { 0, R.raw.scene13, R.raw.scene1, R.raw.scene2, R.raw.scene3, R.raw.scene4, R.raw.scene5, R.raw.scene6, R.raw.scene7, R.raw.scene8, R.raw.scene9 , R.raw.scene10 , R.raw.scene11, R.raw.scene12 };
 	Bitmap artBitmap;
 	Canvas artCanvas;
 	RectF artRect;
