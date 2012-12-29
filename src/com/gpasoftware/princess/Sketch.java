@@ -167,7 +167,7 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 		
 		SVG svg = SVGParser.getSVGFromResource(getResources(), artworkId);
 
-		RectF dest = svg.getBounds();
+		RectF dest = new RectF(0,0,640,960);
 		
 		if(dest == null|| (int) dest.width() == 0 || (int) dest.height() == 0) {
 			dest = svg.getLimits();

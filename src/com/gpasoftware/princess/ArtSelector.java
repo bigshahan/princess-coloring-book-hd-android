@@ -48,6 +48,7 @@ public class ArtSelector extends Activity implements OnClickListener  {
 		
 		// setup ImageView and Counter
 		art = (SceneSelectorImage) this.findViewById(R.id.artImage);
+		artRect = new RectF(0,0,640,960);
 			
 		// setup buttons
 		ImageButton previous = (ImageButton) this.findViewById(R.id.previous);
@@ -98,17 +99,6 @@ public class ArtSelector extends Activity implements OnClickListener  {
 	    Picture picture = svg.getPicture();
 	    Paint whitePaint = new Paint();
 	    whitePaint.setColor(Color.WHITE);
-	    
-		artRect = svg.getBounds();
-		
-		if(artRect == null|| (int) artRect.width() == 0 || (int) artRect.height() == 0) {
-			artRect = svg.getLimits();
-		}
-		
-		// return if dimensions are wrong
-		if(! (artRect != null && (int) artRect.width() != 0 && (int) artRect.height() != 0)) {
-			return;
-		}
 		
 		// get dimensions of imageview
 		float x = art.getWidth();
