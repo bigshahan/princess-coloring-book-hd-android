@@ -63,13 +63,12 @@
         android:text="@string/copyright"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <com.gpasoftware.princess.SceneSelectorImage
+    <com.tinyline.app.SVGView
         android:id="@+id/artImage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="600dp"
+        android:layout_height="400dp"
         android:layout_below="@+id/titleImage"
         android:layout_centerHorizontal="true"
-        android:scaleType="fitCenter"
         android:background="@drawable/frame"
         android:contentDescription="@string/scene" />
 

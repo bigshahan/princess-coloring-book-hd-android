@@ -15,8 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import com.larvalabs.svgandroid.SVG;
-import com.larvalabs.svgandroid.SVGParser;
 import android.graphics.Canvas;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -161,79 +159,9 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 		
 		y = y - (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, r.getDisplayMetrics());
 		
-		// setup test render
+		// RENDER ARTWORK
 		ImageView im2;
 		im2 = (ImageView) this.findViewById(R.id.imageView1);
-		
-		SVG svg = SVGParser.getSVGFromResource(getResources(), artworkId);
-
-		RectF dest = svg.getBounds();
-		
-		if(dest == null|| (int) dest.width() == 0 || (int) dest.height() == 0) {
-			dest = svg.getLimits();
-		}
-		
-		if(dest != null && (int) dest.width() != 0 && (int) dest.height() != 0) {
-			Bitmap bm2;
-			Canvas c2;
-			
-		    // scale picture
-			Picture picture = svg.getPicture();
-			
-			float xScaled = dest.width();
-			float yScaled = dest.height();
-			
-			// scale DOWN if EITHER dimensions are bigger
-			if((xScaled > x || yScaled > y) && x > 0 && y > 0) {
-				if(xScaled > yScaled) {
-					// width is bigger than height
-					// match to x value
-					float scaleFactor = xScaled/x;
-					xScaled = xScaled * scaleFactor;
-					yScaled = yScaled * scaleFactor;
-					
-				} else {
-					// height is bigger than or equal to width
-					// match to y value
-					float scaleFactor = yScaled/y;
-					xScaled = xScaled * scaleFactor;
-					yScaled = yScaled * scaleFactor;
-				}
-				
-				// update dest
-				dest = new RectF(0,0,xScaled, yScaled);
-
-			// scale UP if BOTH dimensions are smaller
-			} if(xScaled < x && yScaled < y && x > 0 && y > 0) {
-				if(xScaled > yScaled) {
-					// width is bigger than height
-					// match to x value
-					float scaleFactor = x/xScaled;
-					xScaled = xScaled * scaleFactor;
-					yScaled = yScaled * scaleFactor;
-					
-				} else {
-					// height is bigger than or equal to width
-					// match to y value
-					float scaleFactor = y/yScaled;
-					xScaled = xScaled * scaleFactor;
-					yScaled = yScaled * scaleFactor;
-				}
-				
-				// update dest
-				dest = new RectF(0,0,xScaled, yScaled);
-			}
-
-		    // draw picture
-			bm2 = Bitmap.createBitmap((int) xScaled, (int) yScaled, Config.ARGB_8888);
-			c2 = new Canvas(bm2);
-			
-			im2.setImageBitmap(bm2);
-			
-		    c2.drawPicture(picture, dest);
-		    
-		    im2.setOnTouchListener(this);
-		}
 		
 		
 		// setup drawable region
