@@ -52,11 +52,9 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 	ImageView currentColorImage;
 	
 	int[] colorsArray = {
-			R.color.picker_1,
-			R.color.picker_17,
-			R.color.picker_2,
-			R.color.picker_3,
 			R.color.picker_4,
+
+			R.color.picker_3,
 			
 			R.color.picker_5,
 			R.color.picker_6,
@@ -72,6 +70,9 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 			R.color.picker_14,
 			R.color.picker_15,
 			R.color.picker_16,
+			R.color.picker_1,
+			R.color.picker_17,
+			R.color.picker_2,
 };
 	
 	@Override
@@ -250,7 +251,7 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 		
 		// setup current paint
 		m = new Paint();
-		m.setColor(getResources().getColor(colorsArray[2]));
+		m.setColor(getResources().getColor(colorsArray[0]));
 		// m.setAlpha(200);
 		m.setStyle(Style.FILL_AND_STROKE);
 		m.setAntiAlias(true);
@@ -288,7 +289,7 @@ public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekB
 		
 		for(int i=0; i < colorsArray.length; i++) {
 			
-			if(i == 2) {
+			if(i == 0) {
 				addColor(colorsArray[i], true);
 			} else {
 				addColor(colorsArray[i], false);
