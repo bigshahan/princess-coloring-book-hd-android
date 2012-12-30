@@ -276,13 +276,13 @@ public class Sketch extends MusicActivity implements OnTouchListener, SeekBar.On
 		
 		// setup save button
 		// amazon kindle - no save button
-		if(android.os.Build.MANUFACTURER.equals("Amazon")) {
-			ImageButton saveButton = (ImageButton) this.findViewById(R.id.saveButton);
-			saveButton.setVisibility(View.GONE);
-		} else {
+//		if(android.os.Build.MANUFACTURER.equals("Amazon")) {
+//			ImageButton saveButton = (ImageButton) this.findViewById(R.id.saveButton);
+//			saveButton.setVisibility(View.GONE);
+//		} else {
 			ImageButton saveButton = (ImageButton) this.findViewById(R.id.saveButton);
 			saveButton.setOnClickListener(this);
-		}
+//		}
 		
 		
 		// setup colors
