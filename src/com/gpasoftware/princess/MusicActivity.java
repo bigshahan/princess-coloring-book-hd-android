@@ -5,12 +5,17 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 
 public class MusicActivity extends Activity {
 	protected Boolean playMusic = true;
 	protected Intent musicIntent;
 	
+	protected void loadMusicPrefs() {
+		SharedPreferences settings = getSharedPreferences("PrincessColor", MODE_PRIVATE);
+	    playMusic = settings.getBoolean("playMusic", true);
+	}
 	
 	protected boolean mIsBound = false;
 	//private MusicService mServ;
@@ -39,6 +44,8 @@ public class MusicActivity extends Activity {
 	}
 	
 	protected void playMusic() {
+	    loadMusicPrefs();
+
 		if(playMusic) {
 			doBindService();
 			

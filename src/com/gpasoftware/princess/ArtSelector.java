@@ -68,12 +68,9 @@ public class ArtSelector extends MusicActivity implements OnClickListener  {
 		
 		// setup audio
 		// get play music prefs
-	    SharedPreferences settings = getSharedPreferences("PrincessColor", MODE_PRIVATE);
-	    playMusic = settings.getBoolean("playMusic", true);
+	    playMusic();
 	    ((ToggleButton) this.findViewById(R.id.music_toggle)).setChecked(playMusic);
-	    
-	    
-		playMusic();
+		
 	}
 	
 	@Override
@@ -104,7 +101,14 @@ public class ArtSelector extends MusicActivity implements OnClickListener  {
 				loadArtwork(artwork[current]);
 			break;
 			case R.id.music_toggle:
+				
 				playMusic = ((ToggleButton) this.findViewById(R.id.music_toggle)).isChecked();
+
+				SharedPreferences settings = getSharedPreferences("PrincessColor", MODE_PRIVATE);
+			    Editor editor = settings.edit();
+			    editor.putBoolean("playMusic", playMusic);
+			    editor.commit();
+			    
 				
 				if(playMusic) {
 					playMusic();
@@ -112,10 +116,7 @@ public class ArtSelector extends MusicActivity implements OnClickListener  {
 					stopMusic();
 				}
 				
-				SharedPreferences settings = getSharedPreferences("PrincessColor", MODE_PRIVATE);
-			    Editor editor = settings.edit();
-			    editor.putBoolean("playMusic", playMusic);
-			    editor.commit();
+				
 			break;
 		}
 	}
