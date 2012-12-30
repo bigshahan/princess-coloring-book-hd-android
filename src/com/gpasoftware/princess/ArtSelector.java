@@ -1,9 +1,14 @@
 package com.gpasoftware.princess;
 
 import android.os.Bundle;
+import android.os.IBinder;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -12,9 +17,12 @@ import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.RectF;
 import android.graphics.Bitmap.Config;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.ToggleButton;
+
 import com.larvalabs.svgandroid.SVG;
 import com.larvalabs.svgandroid.SVGParser;
 import com.gpasoftware.princess.SceneSelectorImage;
@@ -28,7 +36,35 @@ public class ArtSelector extends Activity implements OnClickListener  {
 	Bitmap artBitmap;
 	Canvas artCanvas;
 	RectF artRect;
+	Boolean playMusic = true;
+	Intent musicIntent;
 	
+	private boolean mIsBound = false;
+	private MusicService mServ;
+	private ServiceConnection Scon = new ServiceConnection() {
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder binder) {
+			mServ = ((MusicService.ServiceBinder) binder).getService();
+		}
+
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+			mServ = null;
+		}
+	};
+
+	void doBindService() {
+	 	bindService(new Intent(this,MusicService.class), Scon,Context.BIND_AUTO_CREATE);
+	 	mIsBound = true;
+	}
+
+	void doUnbindService() {
+		if(mIsBound) {
+			unbindService(Scon);
+	      	mIsBound = false;
+		}
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,13 +97,34 @@ public class ArtSelector extends Activity implements OnClickListener  {
 		previous.setOnClickListener(this);
 		next.setOnClickListener(this);
 		art.setOnClickListener(this);
+		((ToggleButton) this.findViewById(R.id.music_toggle)).setOnClickListener(this);
 		
 		// setup audio
-		setupAudio();
+		// get play music prefs
+	    SharedPreferences settings = getSharedPreferences("PrincessColor", MODE_PRIVATE);
+	    playMusic = settings.getBoolean("playMusic", true);
+	    ((ToggleButton) this.findViewById(R.id.music_toggle)).setChecked(playMusic);
+	    
+	    doBindService();
+		playMusic();
 	}
 	
-	private void setupAudio() {
-
+	private void playMusic() {
+		if(playMusic) {
+			if(mServ != null) {
+				mServ.resumeMusic();
+			} else {
+				musicIntent = new Intent();
+				musicIntent.setClass(this, MusicService.class);
+				startService(musicIntent);
+			}
+		}
+	}
+	
+	private void stopMusic() {
+		if(mServ != null) {
+			mServ.stopMusic();
+		}
 	}
 
 	@Override
@@ -97,6 +154,20 @@ public class ArtSelector extends Activity implements OnClickListener  {
 				
 				loadArtwork(artwork[current]);
 			break;
+			case R.id.music_toggle:
+				playMusic = ((ToggleButton) this.findViewById(R.id.music_toggle)).isChecked();
+				
+				if(playMusic) {
+					playMusic();
+				} else {
+					stopMusic();
+				}
+				
+				SharedPreferences settings = getSharedPreferences("PrincessColor", MODE_PRIVATE);
+			    Editor editor = settings.edit();
+			    editor.putBoolean("playMusic", playMusic);
+			    editor.commit();
+			break;
 		}
 	}
 	
@@ -115,6 +186,16 @@ public class ArtSelector extends Activity implements OnClickListener  {
 	    
 		artCanvas.drawPicture(picture, artRect);
 		getWindow().getDecorView().invalidate();
+	}
+	
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		
+		doUnbindService();
+		stopService(musicIntent);
+		
 	}
 
 }

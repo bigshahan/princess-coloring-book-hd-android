@@ -57,9 +57,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="1dp"
-        android:layout_marginLeft="1dp"
-        android:gravity="center"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
         android:text="@string/copyright"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -72,5 +71,16 @@
         android:scaleType="fitCenter"
         android:background="@drawable/frame"
         android:contentDescription="@string/scene" />
+
+    <ToggleButton
+        android:id="@+id/music_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/copyright"
+        android:layout_alignParentRight="true"
+        android:textOn="Sound On"
+        android:textOff="Sound Off"
+        android:layout_alignParentBottom="true"
+        android:text="Music" />
 
 </RelativeLayout>
