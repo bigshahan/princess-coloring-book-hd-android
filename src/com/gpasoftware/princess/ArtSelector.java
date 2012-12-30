@@ -1,12 +1,8 @@
 package com.gpasoftware.princess;
 
 import android.os.Bundle;
-import android.os.IBinder;
-import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
@@ -27,7 +23,7 @@ import com.larvalabs.svgandroid.SVGParser;
 import com.gpasoftware.princess.SceneSelectorImage;
 
 
-public class ArtSelector extends Activity implements OnClickListener  {
+public class ArtSelector extends MusicActivity implements OnClickListener  {
 	SceneSelectorImage art;
 	int current = 1;
 	int total = 13;
@@ -35,34 +31,6 @@ public class ArtSelector extends Activity implements OnClickListener  {
 	Bitmap artBitmap;
 	Canvas artCanvas;
 	RectF artRect;
-	Boolean playMusic = true;
-	Intent musicIntent;
-	
-	private boolean mIsBound = false;
-	private MusicService mServ;
-	private ServiceConnection Scon = new ServiceConnection() {
-		@Override
-		public void onServiceConnected(ComponentName name, IBinder binder) {
-			mServ = ((MusicService.ServiceBinder) binder).getService();
-		}
-
-		@Override
-		public void onServiceDisconnected(ComponentName name) {
-			mServ = null;
-		}
-	};
-
-	void doBindService() {
-	 	bindService(new Intent(this,MusicService.class), Scon,Context.BIND_AUTO_CREATE);
-	 	mIsBound = true;
-	}
-
-	void doUnbindService() {
-		if(mIsBound) {
-			unbindService(Scon);
-	      	mIsBound = false;
-		}
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -108,39 +76,6 @@ public class ArtSelector extends Activity implements OnClickListener  {
 		playMusic();
 	}
 	
-	private void playMusic() {
-		if(playMusic) {
-			doBindService();
-			
-			if(musicIntent == null) {
-				musicIntent = new Intent();
-				musicIntent.setClass(this, MusicService.class);
-			}
-			
-			startService(musicIntent);
-		}
-	}
-	
-	private void stopMusic() {
-		doUnbindService();
-		
-		if(musicIntent != null) {
-			stopService(musicIntent);
-		}
-	}
-	
-	@Override
-	protected void onPause() {
-		super.onPause();
-		stopMusic();
-	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		playMusic();
-	}
-
 	@Override
 	public void onClick(View view) {
 		switch(view.getId()) {
@@ -202,11 +137,6 @@ public class ArtSelector extends Activity implements OnClickListener  {
 		getWindow().getDecorView().invalidate();
 	}
 	
-	
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		stopMusic();
-	}
+
 
 }

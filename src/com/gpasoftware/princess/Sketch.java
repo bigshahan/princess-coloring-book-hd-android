@@ -2,7 +2,6 @@ package com.gpasoftware.princess;
 
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,7 +31,7 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View.OnTouchListener;
 
-public class Sketch extends Activity implements OnTouchListener, SeekBar.OnSeekBarChangeListener, OnClickListener {
+public class Sketch extends MusicActivity implements OnTouchListener, SeekBar.OnSeekBarChangeListener, OnClickListener {
 	ImageView im;
 	Bitmap bm;
 	Canvas c;
