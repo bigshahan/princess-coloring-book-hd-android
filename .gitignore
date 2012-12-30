@@ -28,3 +28,4 @@ proguard/
 *.iml
 *.ipr
 *.iws
+.settings/org.eclipse.jdt.core.prefs
