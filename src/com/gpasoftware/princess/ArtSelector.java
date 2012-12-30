@@ -17,7 +17,6 @@ import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.RectF;
 import android.graphics.Bitmap.Config;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -112,8 +111,12 @@ public class ArtSelector extends Activity implements OnClickListener  {
 	private void playMusic() {
 		if(playMusic) {
 			doBindService();
-			musicIntent = new Intent();
-			musicIntent.setClass(this, MusicService.class);
+			
+			if(musicIntent == null) {
+				musicIntent = new Intent();
+				musicIntent.setClass(this, MusicService.class);
+			}
+			
 			startService(musicIntent);
 		}
 	}
@@ -124,6 +127,18 @@ public class ArtSelector extends Activity implements OnClickListener  {
 		if(musicIntent != null) {
 			stopService(musicIntent);
 		}
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		stopMusic();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		playMusic();
 	}
 
 	@Override
@@ -191,12 +206,7 @@ public class ArtSelector extends Activity implements OnClickListener  {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		
-		doUnbindService();
-		
-		if(musicIntent != null) {
-			stopService(musicIntent);
-		}
+		stopMusic();
 	}
 
 }
