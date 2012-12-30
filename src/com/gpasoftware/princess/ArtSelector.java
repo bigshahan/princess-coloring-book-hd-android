@@ -105,25 +105,24 @@ public class ArtSelector extends Activity implements OnClickListener  {
 	    playMusic = settings.getBoolean("playMusic", true);
 	    ((ToggleButton) this.findViewById(R.id.music_toggle)).setChecked(playMusic);
 	    
-	    doBindService();
+	    
 		playMusic();
 	}
 	
 	private void playMusic() {
 		if(playMusic) {
-			if(mServ != null) {
-				mServ.resumeMusic();
-			} else {
-				musicIntent = new Intent();
-				musicIntent.setClass(this, MusicService.class);
-				startService(musicIntent);
-			}
+			doBindService();
+			musicIntent = new Intent();
+			musicIntent.setClass(this, MusicService.class);
+			startService(musicIntent);
 		}
 	}
 	
 	private void stopMusic() {
-		if(mServ != null) {
-			mServ.stopMusic();
+		doUnbindService();
+		
+		if(musicIntent != null) {
+			stopService(musicIntent);
 		}
 	}
 
@@ -194,8 +193,10 @@ public class ArtSelector extends Activity implements OnClickListener  {
 		super.onDestroy();
 		
 		doUnbindService();
-		stopService(musicIntent);
 		
+		if(musicIntent != null) {
+			stopService(musicIntent);
+		}
 	}
 
 }
