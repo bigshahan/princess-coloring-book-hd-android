@@ -51,6 +51,7 @@ public class Sketch extends MusicActivity implements OnTouchListener, SeekBar.On
 	Paint thicknessFill;
 	LinearLayout colorsContainer;
 	ImageView currentColorImage;
+	Boolean tablet;
 	
 	int[] colorsArray = {
 			R.color.picker_4,
@@ -154,6 +155,7 @@ public class Sketch extends MusicActivity implements OnTouchListener, SeekBar.On
 		} else {
 			// not a tablet. show phone ui
 			setContentView(R.layout.sketch_phone);
+			tablet = false;
 		}
 		
 		// setup display size

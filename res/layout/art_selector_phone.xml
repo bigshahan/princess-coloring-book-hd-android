@@ -15,24 +15,26 @@
 
     <ImageButton
         android:id="@+id/previous"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/artImage"
         android:layout_alignBottom="@+id/artImage"
         android:layout_toLeftOf="@+id/artImage"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="10dp"
+        android:scaleType="fitCenter"
         android:background="@null"
         android:contentDescription="@string/previous_scene"
         android:src="@drawable/left_button" />
 
     <ImageButton
         android:id="@+id/next"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/artImage"
         android:layout_alignTop="@+id/artImage"
         android:layout_alignBottom="@+id/artImage"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
+        android:scaleType="fitCenter"
         android:background="@null"
         android:contentDescription="@string/next_scene"
         android:src="@drawable/right_button" />
@@ -42,11 +44,11 @@
     <ImageView
         android:id="@+id/titleImage"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="30dp"
         android:contentDescription="@string/title"
         android:src="@drawable/title_portrait" />
 
@@ -54,9 +56,8 @@
         android:id="@+id/copyright"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/music_toggle"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
         android:text="@string/copyright"

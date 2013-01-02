@@ -31,6 +31,7 @@ public class ArtSelector extends MusicActivity implements OnClickListener  {
 	Bitmap artBitmap;
 	Canvas artCanvas;
 	RectF artRect;
+	boolean tablet = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +47,14 @@ public class ArtSelector extends MusicActivity implements OnClickListener  {
 			setContentView(R.layout.art_selector);
 		} else {
 			// not a tablet. load phone ui
+			tablet = false;
 			setContentView(R.layout.art_selector_phone);
 		}
 
 		// setup ImageView and Counter
 		art = (SceneSelectorImage) this.findViewById(R.id.artImage);
 		artRect = new RectF(0,0,640,960);
+		art.tablet = tablet;
 			
 		// setup buttons
 		ImageButton previous = (ImageButton) this.findViewById(R.id.previous);

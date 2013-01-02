@@ -14,6 +14,7 @@ import android.util.TypedValue;
 @SuppressLint("DrawAllocation")
 public class SceneSelectorImage extends ImageView {
 	Context ctx;
+	public boolean tablet = true;
 	
 	public SceneSelectorImage(Context context) {
 		super(context);
@@ -42,11 +43,17 @@ public class SceneSelectorImage extends ImageView {
 		// bottom padding + title
 		int spacingHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400, r.getDisplayMetrics());
 		
-		// width of Image
+        if(! tablet) {
+        	spacingWidthSide = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, r.getDisplayMetrics());
+        	spacingHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, r.getDisplayMetrics());
+        }
+       
+        // width of Image
         int widthOfImage = MeasureSpec.getSize(widthMeasureSpec) - spacingWidthSide*2;
-        int heightOfPage = 400;
+        
         
         // Get Height of Page
+        int heightOfPage = 400;
         WindowManager wm = (WindowManager) ctx.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         
