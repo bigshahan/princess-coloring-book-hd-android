@@ -174,7 +174,12 @@ public class Sketch extends MusicActivity implements OnTouchListener, SeekBar.On
 			y = display.getHeight();
 		}
 		
-		y = y - (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, r.getDisplayMetrics());
+		if(tablet) {
+			y = y - (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, r.getDisplayMetrics());
+		} else {
+			y = y - (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, r.getDisplayMetrics());
+		}
+		
 		
 		// setup test render
 		ImageView im2;
@@ -421,9 +426,6 @@ public class Sketch extends MusicActivity implements OnTouchListener, SeekBar.On
 		currentColorImage.setImageResource(R.drawable.color_circle);
 		currentColorImage = (ImageView) view;
 		currentColorImage.setImageResource(R.drawable.color_circle_selected);
-		
-		//m.setColor();
-		//ColorDrawable color = (ColorDrawable) currentColorImage.getBackground();
 		m.setColor(getResources().getColor(Integer.parseInt((String) currentColorImage.getTag())));
 		
 		updateThickness();
