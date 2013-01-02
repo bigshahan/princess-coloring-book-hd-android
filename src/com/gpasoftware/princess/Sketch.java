@@ -338,6 +338,9 @@ public class Sketch extends MusicActivity implements OnTouchListener, SeekBar.On
 			image.setImageResource(R.drawable.color_circle);
 		}
 		
+		// Set Color Tag
+		image.setTag(Integer.toString(color));
+		
 		// Add ImageView to 
 		colorsContainer.addView(image);
 	}
@@ -389,7 +392,7 @@ public class Sketch extends MusicActivity implements OnTouchListener, SeekBar.On
 		
 	}
 
-	// save!!
+	// save / change color!!
 	@Override
 	public void onClick(View view) {
 		// save to gallery
@@ -420,7 +423,8 @@ public class Sketch extends MusicActivity implements OnTouchListener, SeekBar.On
 		currentColorImage.setImageResource(R.drawable.color_circle_selected);
 		
 		//m.setColor();
-		m.setColor(((ColorDrawable) currentColorImage.getBackground()).getColor());
+		//ColorDrawable color = (ColorDrawable) currentColorImage.getBackground();
+		m.setColor(getResources().getColor(Integer.parseInt((String) currentColorImage.getTag())));
 		
 		updateThickness();
 	}
