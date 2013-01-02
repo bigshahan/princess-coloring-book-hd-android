@@ -35,20 +35,20 @@ public class ArtSelector extends MusicActivity implements OnClickListener  {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		
 		// detect if tablet
 		Context context  = getApplicationContext();
 		boolean xlarge = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
 		boolean large = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
-		
-		if(! (xlarge || large)) {
-			// not a tablet. show error
-			setContentView(R.layout.not_tablet);
-			return;
+						
+		if(xlarge || large) {
+			setContentView(R.layout.art_selector);
+		} else {
+			// not a tablet. load phone ui
+			setContentView(R.layout.art_selector_phone);
 		}
-		
-		setContentView(R.layout.art_selector);
-		
+
 		// setup ImageView and Counter
 		art = (SceneSelectorImage) this.findViewById(R.id.artImage);
 		artRect = new RectF(0,0,640,960);

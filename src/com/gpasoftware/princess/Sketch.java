@@ -6,7 +6,9 @@ import android.app.AlertDialog;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.view.Display;
 import android.widget.ImageButton;
@@ -142,7 +144,17 @@ public class Sketch extends MusicActivity implements OnTouchListener, SeekBar.On
 		int artworkId = extras.getInt("artworkId");
 
 		// load view
-		setContentView(R.layout.sketch);
+		// detect if tablet
+		Context context  = getApplicationContext();
+		boolean xlarge = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
+		boolean large = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
+				
+		if(xlarge || large) {
+			setContentView(R.layout.sketch);
+		} else {
+			// not a tablet. show phone ui
+			setContentView(R.layout.sketch_phone);
+		}
 		
 		// setup display size
 		Display display = getWindowManager().getDefaultDisplay(); 

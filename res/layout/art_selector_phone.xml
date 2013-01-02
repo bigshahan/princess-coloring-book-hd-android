@@ -1,0 +1,86 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".ArtSelector" >
+    
+    <View
+        android:id="@+id/lights"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true"
+       	android:background="@drawable/lights_tile"
+	/>
+
+    <ImageButton
+        android:id="@+id/previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/artImage"
+        android:layout_alignBottom="@+id/artImage"
+        android:layout_toLeftOf="@+id/artImage"
+        android:layout_marginRight="20dp"
+        android:background="@null"
+        android:contentDescription="@string/previous_scene"
+        android:src="@drawable/left_button" />
+
+    <ImageButton
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/artImage"
+        android:layout_alignTop="@+id/artImage"
+        android:layout_alignBottom="@+id/artImage"
+        android:layout_marginLeft="20dp"
+        android:background="@null"
+        android:contentDescription="@string/next_scene"
+        android:src="@drawable/right_button" />
+    
+
+
+    <ImageView
+        android:id="@+id/titleImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="40dp"
+        android:contentDescription="@string/title"
+        android:src="@drawable/title_portrait" />
+
+    <TextView
+        android:id="@+id/copyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:text="@string/copyright"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <com.gpasoftware.princess.SceneSelectorImage
+        android:id="@+id/artImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleImage"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter"
+        android:background="@drawable/frame"
+        android:contentDescription="@string/scene" />
+
+    <ToggleButton
+        android:id="@+id/music_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/copyright"
+        android:layout_alignParentRight="true"
+        android:textOn="Sound On"
+        android:textOff="Sound Off"
+        android:layout_alignParentBottom="true"
+	/>
+
+</RelativeLayout>
