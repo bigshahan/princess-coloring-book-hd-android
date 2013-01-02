@@ -50,7 +50,7 @@ public class Sketch extends MusicActivity implements OnTouchListener, SeekBar.On
 	Paint thicknessFill;
 	LinearLayout colorsContainer;
 	ImageView currentColorImage;
-	Boolean tablet;
+	Boolean tablet = true;
 	
 	int[] colorsArray = {
 			R.color.picker_4,
